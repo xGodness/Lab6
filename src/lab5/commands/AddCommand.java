@@ -7,11 +7,13 @@ import lab5.movie_classes.Movie;
 public class AddCommand extends Command {
     private IOManager ioManager;
     private String[] args;
+    private int argsLenght;
 
     public AddCommand(MoviesCollection moviesCollection, IOManager ioManager, String[] args) {
         super(moviesCollection);
         this.ioManager = ioManager;
         this.args = args;
+        argsLenght = args.length;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class AddCommand extends Command {
         String movieName = null;
         Integer oscarsCount = null;
 
-        if (args.length > 0 && ioManager.isStringValid(args[0])) {
+        if (argsLenght > 0 && ioManager.isStringValid(args[0])) {
             movieName = args[0];
         }
         while (movieName == null || !ioManager.isStringValid(movieName)) {
@@ -30,7 +32,12 @@ public class AddCommand extends Command {
         movie.setName(movieName);
 
 
-        if (args.length > 1 && ) {
+        if (argsLenght > 1 && ioManager.isNumericOnly(args[1])) {
+            oscarsCount = Integer.valueOf(args[1]);
+        } else {
+            if (argsLenght != 1)
+        }
+            if !(argsLenght == 1 || ioManager.isSpacesOnly(args[1]) {            // <--- assume null input
 
         }
 

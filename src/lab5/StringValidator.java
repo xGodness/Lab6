@@ -21,7 +21,7 @@ public class StringValidator {
     }
 
     public boolean stringValidation(String string) {
-        return charsetValidation(string) && spacesValidation(string);
+        return charsetValidation(string) && !spacesOnlyValidation(string);
     }
 
     public boolean charsetValidation(String string) {
@@ -35,14 +35,14 @@ public class StringValidator {
         return false;
     }
 
-    public boolean spacesValidation(String string) {
+    public boolean spacesOnlyValidation(String string) {
         if (string == null) {
             return false;
         }
         Matcher matcher = spacesValidationPattern.matcher(string);
         if (matcher.find()) {
-            return !string.substring(matcher.start(), matcher.end()).equals(string);
+            return string.substring(matcher.start(), matcher.end()).equals(string);
         }
-        return true;
+        return false;
     }
 }

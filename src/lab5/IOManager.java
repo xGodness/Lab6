@@ -42,6 +42,10 @@ public class IOManager {
         return stringValidator.numericValidation(string);
     }
 
+    public boolean isSpacesOnly(String string) {
+        return stringValidator.spacesOnlyValidation(string);
+    }
+
     //todo
 //    public void printErr(Exception e, String message) {
 //        printlnOut(message);
