@@ -14,7 +14,7 @@ public class IOManager {
         String input = null;
         while (input == null) {
             try {
-                input = scanner.next();
+                input = scanner.nextLine();
             } catch (Exception e) {
                 printOut("Invalid input error. Try again: ");
             }

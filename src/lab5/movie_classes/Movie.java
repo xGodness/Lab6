@@ -15,4 +15,8 @@ public class Movie {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setOscarsCount(Integer oscarsCount) {
+        this.oscarsCount = oscarsCount;
+    }
 }

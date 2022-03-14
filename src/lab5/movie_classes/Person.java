@@ -8,4 +8,7 @@ public class Person {
     private HairColor hairColor; //Поле может быть null
     private Country nationality; //Поле не может быть null
     private Location location; //Поле может быть null
+
+
+
 }
