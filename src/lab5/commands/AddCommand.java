@@ -51,15 +51,7 @@ public class AddCommand extends Command {
                 x = Double.parseDouble(coords[0]);
                 y = Float.parseFloat(coords[1]);
             } catch (NumberFormatException e) {
-                ioManager.printlnOut("||| Incorrect input. X coordinate must be double-type value.");
-            }
-        }
-        while (y == null) {
-            input = ioManager.getNextInput("Specify Y coordinate (float): ");
-            try {
-                y = Float.parseFloat(input);
-            } catch (NumberFormatException e) {
-                ioManager.printlnOut("||| Incorrect input. Y coordinate must be float-type value.");
+                ioManager.printlnOut("||| Incorrect input. X coordinate must be double-type value, Y coordinate must be float-type value.");
             }
         }
         Coordinates coordinates = new Coordinates(x, y);
@@ -111,7 +103,7 @@ public class AddCommand extends Command {
          */
         MovieGenre genre = null;
         while (genre == null) {
-            input = ioManager.getNextInput("Specify movie genre (Action, Western, Drama, Musical, Sci-fi): ");
+            input = ioManager.getNextInput("Specify movie genre (Action, Western, Drama, Musical or Sci-fi): ");
             try {
                 genre = MovieGenre.valueOf(input);
             } catch (IllegalArgumentException e) {
@@ -210,7 +202,23 @@ public class AddCommand extends Command {
         /**
          * Screenwriter's location fetch
          */
-        Location location;
+        Location location = null;
+        while (location == null) {
+            input = ioManager.getNextInput("Specify location's X (integer), Y (double) and name (string) values: ");
+            if (input.equals("")) {
+                break;
+            }
+            String[] locationValues = input.split(" ");
+            try {
+                int locationX = Integer.parseInt(locationValues[0]);
+                double locationY = Double.parseDouble(locationValues[1]);
+                String locationName = locationValues[2];
+                if (ioManager.isStringValid(locationName)) {
+                    ioManager.printlnOut("||| Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
+                }
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e)
+        }
+
 
 
 
