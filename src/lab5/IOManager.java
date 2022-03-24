@@ -1,10 +1,16 @@
 package lab5;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.AnySimpleDV;
+
 import java.util.Scanner;
 
 public class IOManager {
     private Scanner scanner;
     private StringValidator stringValidator;
+
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\t\u001B[32m";
+    private static final String ANSI_RESET = "\033[0m";
 
     public IOManager() {
         scanner = new Scanner(System.in).useDelimiter("\n");
@@ -32,6 +38,10 @@ public class IOManager {
     }
     public void printlnOut(String message) {
         System.out.println(message);
+    }
+
+    public void printlnErr(String message) {
+        System.out.println(ANSI_RED + message + ANSI_RESET);
     }
 
     public boolean isStringValid(String string) {

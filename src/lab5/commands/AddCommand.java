@@ -23,7 +23,7 @@ public class AddCommand extends Command {
 
     @Override
     public void execute() {
-        Movie movie = new Movie();
+
         String input;
 
         /**
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             if (ioManager.isStringValid(input)) {
                 movieName = input;
             } else {
-                ioManager.printlnOut("||| Incorrect input. Movie name must contain at least one alphanumeric or standard special character.");
+                ioManager.printlnErr("||| Incorrect input. Movie name must contain at least one alphanumeric or standard special character.");
             }
         }
 
@@ -51,7 +51,7 @@ public class AddCommand extends Command {
                 x = Double.parseDouble(coords[0]);
                 y = Float.parseFloat(coords[1]);
             } catch (NumberFormatException e) {
-                ioManager.printlnOut("||| Incorrect input. X coordinate must be double-type value, Y coordinate must be float-type value.");
+                ioManager.printlnErr("||| Incorrect input. X coordinate must be double-type value, Y coordinate must be float-type value.");
             }
         }
         Coordinates coordinates = new Coordinates(x, y);
@@ -74,10 +74,10 @@ public class AddCommand extends Command {
             try {
                 oscarsCount = Integer.parseInt(input);
                 if (oscarsCount < 1) {
-                    ioManager.printlnOut("||| Incorrect input. Oscars count must be positive integer or null.");
+                    ioManager.printlnErr("||| Incorrect input. Oscars count must be positive integer or null.");
                 }
             } catch (NumberFormatException e) {
-                ioManager.printlnOut("||| Incorrect input. Oscars count must be positive integer or null.");
+                ioManager.printlnErr("||| Incorrect input. Oscars count must be positive integer or null.");
             }
         }
 
@@ -94,7 +94,7 @@ public class AddCommand extends Command {
             if (ioManager.isStringValid(input)) {
                 tagline = input;
             } else {
-                ioManager.printlnOut("||| Incorrect input. Tagline must contain only standard characters or be a null.");
+                ioManager.printlnErr("||| Incorrect input. Tagline must contain only standard characters or be a null.");
             }
         }
 
@@ -120,7 +120,7 @@ public class AddCommand extends Command {
             try {
                 mpaaRating = MpaaRating.valueOf(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnOut("||| Incorrect input. MPAA rating must be PG, PG_13 or R.");
+                ioManager.printlnErr("||| Incorrect input. MPAA rating must be PG, PG_13 or R.");
             }
         }
 
@@ -133,7 +133,7 @@ public class AddCommand extends Command {
             if (ioManager.isStringValid(input)) {
                 personName = input;
             } else {
-                ioManager.printlnOut("||| Incorrect input. Screenwriter's name must contain only standard characters, at least one must be provided.");
+                ioManager.printlnErr("||| Incorrect input. Screenwriter's name must contain only standard characters, at least one must be provided.");
             }
         }
 
@@ -155,7 +155,7 @@ public class AddCommand extends Command {
                         Integer.parseInt(birthDate[0])
                 );
             } catch (IllegalArgumentException | DateTimeException e) {
-                ioManager.printlnOut("||| Incorrect input. Year, month and day must be valid integers.");
+                ioManager.printlnErr("||| Incorrect input. Year, month and day must be valid integers.");
             }
 
         }
@@ -169,7 +169,7 @@ public class AddCommand extends Command {
             try {
                 eyeColor = EyeColor.valueOf(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnOut("||| Incorrect input. Eye color must be green, red, white or brown.");
+                ioManager.printlnErr("||| Incorrect input. Eye color must be green, red, white or brown.");
             }
         }
 
@@ -182,7 +182,7 @@ public class AddCommand extends Command {
             try {
                 hairColor = HairColor.valueOf(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnOut("||| Incorrect input. Eye color must be blue, yellow or white.");
+                ioManager.printlnErr("||| Incorrect input. Eye color must be blue, yellow or white.");
             }
         }
 
@@ -195,7 +195,7 @@ public class AddCommand extends Command {
             try {
                 nationality = Country.valueOf(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnOut("||| Incorrect input. Nationality must be UK, USA, Vatican, South Korea or North Korea.");
+                ioManager.printlnErr("||| Incorrect input. Nationality must be UK, USA, Vatican, South Korea or North Korea.");
             }
         }
 
@@ -214,73 +214,14 @@ public class AddCommand extends Command {
                 double locationY = Double.parseDouble(locationValues[1]);
                 String locationName = locationValues[2];
                 if (ioManager.isStringValid(locationName)) {
-                    ioManager.printlnOut("||| Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
+                    ioManager.printlnErr("||| Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
                 }
-            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e)
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /**
-         * Movie's name field fetch
-         */
-        if (argsLenght > 0 && ioManager.isStringValid(args[0])) {
-            movieName = args[0];
-        }
-        while (movieName == null || !ioManager.isStringValid(movieName)) {
-            ioManager.printlnOut("Movie name must contain at least one non-space symbol and can contain only alphanumeric characters or space symbols.");
-            movieName = ioManager.getNextInput("Please re-enter the movie name: ");
-        }
-        movie.setName(movieName);
-
-        /**
-         * Movie's oscarCount field fetch
-         */
-        if (argsLenght > 1 && !ioManager.isSpacesOnly(args[1])) {
-            if (ioManager.isNumericOnly(args[1])) {
-                movie.setOscarsCount(Integer.valueOf(args[1]));
-            } else {
-                boolean oscarCountFetch = true;
-                while (oscarCountFetch) {
-                    ioManager.printlnOut("oscarCount field must be greater than or equal to 0 (null allowed).");
-                    String input = ioManager.getNextInput("Please re-enter the Oscars count: ");
-                    if (ioManager.isSpacesOnly(input)) {
-                        oscarCountFetch = false;
-                    } else if (ioManager.isNumericOnly(input)) {
-                        oscarsCount = Integer.valueOf(input);
-                        oscarCountFetch = false;
-                    }
-                }
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+                ioManager.printlnErr("||| Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
             }
         }
 
-        /**
-         * Movie's tagline field fetch
-         */
-        if (argsLenght > 2) {
-            if (ioManager.isSpacesOnly(args[2])) {
-
-            }
-            if (ioManager.isStringValid(args[2])) {
-                tagline = args[2];
-            } else {
-
-            }
-
-        }
-
+        Movie movie = new Movie()
 
     }
 
