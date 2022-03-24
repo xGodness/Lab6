@@ -14,9 +14,8 @@ public class Movie {
     private MpaaRating mpaaRating; //Поле не может быть null
     private Person screenwriter;
 
-    public Movie(long id, String name, Coordinates coordinates, LocalDateTime creationDate, Integer oscarsCount,
+    public Movie(String name, Coordinates coordinates, LocalDateTime creationDate, Integer oscarsCount,
                  String tagline, MovieGenre genre, MpaaRating mpaaRating, Person screenwriter) {
-        this.id = id;
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
@@ -27,11 +26,62 @@ public class Movie {
         this.screenwriter = screenwriter;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setOscarsCount(Integer oscarsCount) {
-        this.oscarsCount = oscarsCount;
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                ", creationDate=" + creationDate +
+                ", oscarsCount=" + oscarsCount +
+                ", tagline='" + tagline + '\'' +
+                ", genre=" + genre +
+                ", mpaaRating=" + mpaaRating +
+                ", screenwriter=" + screenwriter +
+                '}';
     }
+
+    // Getters
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public Integer getOscarsCount() {
+        return oscarsCount;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public MovieGenre getGenre() {
+        return genre;
+    }
+
+    public MpaaRating getMpaaRating() {
+        return mpaaRating;
+    }
+
+    public Person getScreenwriter() {
+        return screenwriter;
+    }
+
+
 }
