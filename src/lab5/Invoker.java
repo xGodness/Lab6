@@ -15,7 +15,7 @@ public class Invoker {
     }
 
     public void executeCommand() {
-        command.execute();
+//        command.execute();
     }
 
     public CommandImpl getCommand() {

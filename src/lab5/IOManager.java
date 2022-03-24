@@ -1,7 +1,5 @@
 package lab5;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.AnySimpleDV;
-
 import java.util.Scanner;
 
 public class IOManager {

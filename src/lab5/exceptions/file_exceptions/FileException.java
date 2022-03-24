@@ -1,4 +1,4 @@
-package lab5.exceptions;
+package lab5.exceptions.file_exceptions;
 
 public class FileException extends Exception {
     public FileException(String message) {

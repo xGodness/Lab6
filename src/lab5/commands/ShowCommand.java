@@ -1,24 +1,22 @@
 package lab5.commands;
 
-import lab5.IOManager;
 import lab5.MoviesCollection;
 import lab5.movie_classes.Movie;
 
 public class ShowCommand extends Command {
-    private IOManager ioManager;
 
-    public ShowCommand(MoviesCollection moviesCollection, IOManager ioManager) {
+    public ShowCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
-        this.ioManager = ioManager;
     }
 
     @Override
-    public void execute() {
+    public String execute(String[] args) {
         MoviesCollection moviesCollection = super.getMoviesCollection();
+        StringBuilder result = new StringBuilder();
         for (Movie movie : moviesCollection.getCollection()) {
-            ioManager.printlnOut(movie.toString());
+            result.append(movie.toString()).append("\n");
         }
-
+        return result.toString();
     }
 
 

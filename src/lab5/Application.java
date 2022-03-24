@@ -1,11 +1,11 @@
 package lab5;
 
-import lab5.exceptions.CannotCreateFileException;
-import lab5.exceptions.FileAlreadyExistsException;
-import lab5.exceptions.FilePermissionException;
-import lab5.exceptions.InvalidFileNameException;
+import lab5.exceptions.collection_exceptions.LoadCollectionException;
+import lab5.exceptions.file_exceptions.CannotCreateFileException;
+import lab5.exceptions.file_exceptions.FileAlreadyExistsException;
+import lab5.exceptions.file_exceptions.FilePermissionException;
+import lab5.exceptions.file_exceptions.InvalidFileNameException;
 
-import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -13,11 +13,13 @@ public class Application {
     private IOManager ioManager;
     private MoviesCollection moviesCollection;
     private FileManager fileManager;
+    private MovieBuilder movieBuilder;
 
     private String currentFileName;
 
     public Application() {
         this.ioManager = new IOManager();
+        this.movieBuilder = new MovieBuilder(ioManager);
         this.fileManager = new FileManager(this);
         this.moviesCollection = null;
     }
@@ -28,26 +30,18 @@ public class Application {
                 moviesCollection = fileManager.load(fileName);
                 currentFileName = fileName;
                 return;
-            } catch (InvalidFileNameException e) {
-                fileName = ioManager.getNextInput(
-                        "File name is invalid. Try another one: ");
 
-            } catch (FilePermissionException e) {
+            } catch (InvalidFileNameException | FilePermissionException | LoadCollectionException e) {
+                ioManager.printlnErr(e.getMessage());
                 fileName = ioManager.getNextInput(
-                        "You don't have permission to read this file. Try another one: ");
-
-
-            } catch (JAXBException e) {
-                fileName = ioManager.getNextInput(
-                        "Cannot load the file. Probably it has wrong extension or was damaged. Try another one: ");
+                        "Specify file name: ");
 
             } catch (FileNotFoundException e) {
-                ioManager.printlnOut("File with such name was not found.");
+                ioManager.printlnErr(e.getMessage());
                 boolean fileWasCreated = createBlankFile(fileName);
                 if (fileWasCreated) {
                     moviesCollection = new MoviesCollection();
                     currentFileName = fileName;
-                    return;
                 }
             }
         }
@@ -58,24 +52,18 @@ public class Application {
         while (response == null
                 || !(response.equals("y") || response.equals("Y") || response.equals("n") || response.equals("N"))) {
 
-            response = ioManager.getNextInput("Would you like to create new blank file with such name? (y/n): ");
+            response = ioManager.getNextInput(
+                    "Would you like to create new blank file with such name? (y/n): ");
         }
 
         if (response.equals("y") || response.equals("Y")) {
             try {
                 fileManager.create(fileName);
                 return true;
-            } catch (InvalidFileNameException | IOException e) {
-                ioManager.printlnOut("File with such name cannot be created");
-            } catch (FileAlreadyExistsException e) {
-                ioManager.printlnOut("File with such name already exists");
-            } catch (FilePermissionException e) {
-                ioManager.printlnOut("You don't have permission to create files in this directory");
-            } catch (CannotCreateFileException e) {
-                ioManager.printlnOut("An error occurred during creating the file");
+            } catch (InvalidFileNameException | IOException | FileAlreadyExistsException | FilePermissionException | CannotCreateFileException e) {
+                ioManager.printlnErr(e.getMessage());
             }
         }
-
         return false;
     }
 

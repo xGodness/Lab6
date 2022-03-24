@@ -3,20 +3,23 @@ package lab5.commands;
 import lab5.IOManager;
 import lab5.MovieBuilder;
 import lab5.MoviesCollection;
+import lab5.movie_classes.Movie;
 
 public class AddCommand extends Command {
+
     private IOManager ioManager;
     private MovieBuilder movieBuilder;
 
-    public AddCommand(MoviesCollection moviesCollection, IOManager ioManager) {
+    public AddCommand(MoviesCollection moviesCollection, MovieBuilder movieBuilder) {
         super(moviesCollection);
-        this.ioManager = ioManager;
+        this.movieBuilder = movieBuilder;
     }
 
     @Override
-    public void execute() {
-        super.getMoviesCollection().addMovie(movieBuilder.generateMovie(ioManager));
-
+    public String execute(String[] args) {
+        Movie movie = movieBuilder.buildMovie();
+        super.getMoviesCollection().addMovie(movie);
+        return "Movie was added ( " + movie + ")";
     }
 
 }

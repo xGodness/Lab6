@@ -1,22 +1,19 @@
 package lab5.commands;
 
-import lab5.IOManager;
 import lab5.MoviesCollection;
 
 public class InfoCommand extends Command {
-    private IOManager ioManager;
 
-    public InfoCommand(MoviesCollection collection, IOManager ioManager) {
+    public InfoCommand(MoviesCollection collection) {
         super(collection);
-        this.ioManager = ioManager;
     }
 
     @Override
-    public void execute() {
-        ioManager.printlnOut(
+    public String execute(String[] args) {
+        return
                 "Collection type     : " + super.getMoviesCollection().getClass() + "\n" +
                 "Initialization date : " + super.getMoviesCollection().getInitDateTime() + "\n" +
-                "Collection size     : " + super.getMoviesCollection().getCollectionSize());
+                "Collection size     : " + super.getMoviesCollection().getCollectionSize();
     }
 
 }

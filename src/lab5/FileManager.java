@@ -1,9 +1,10 @@
 package lab5;
 
-import lab5.exceptions.CannotCreateFileException;
-import lab5.exceptions.FileAlreadyExistsException;
-import lab5.exceptions.FilePermissionException;
-import lab5.exceptions.InvalidFileNameException;
+import lab5.exceptions.collection_exceptions.LoadCollectionException;
+import lab5.exceptions.file_exceptions.CannotCreateFileException;
+import lab5.exceptions.file_exceptions.FileAlreadyExistsException;
+import lab5.exceptions.file_exceptions.FilePermissionException;
+import lab5.exceptions.file_exceptions.InvalidFileNameException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,28 +21,32 @@ public class FileManager {
     }
 
     public MoviesCollection load(String fileName)
-            throws InvalidFileNameException, FilePermissionException, FileNotFoundException, JAXBException {
+            throws InvalidFileNameException, FilePermissionException, FileNotFoundException, LoadCollectionException {
 
         if (!application.isStringValid(fileName)) {
-            throw new InvalidFileNameException();
+            throw new InvalidFileNameException("File name is invalid");
         }
 
         File file = new File(fileName);
 
         if (!file.exists()) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException("File with such name wasn't found");
         }
 
         if (!file.canRead() || !file.canWrite()) {
-            throw new FilePermissionException();
+            throw new FilePermissionException("You don't have permission to read this file");
         }
 
         FileInputStream fileStream = new FileInputStream(file);
         InputStreamReader streamReader = new InputStreamReader(fileStream);
 
-        JAXBContext context = JAXBContext.newInstance(MoviesCollection.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return (MoviesCollection) unmarshaller.unmarshal(streamReader);
+        try {
+            JAXBContext context = JAXBContext.newInstance(MoviesCollection.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return (MoviesCollection) unmarshaller.unmarshal(streamReader);
+        } catch (JAXBException e) {
+            throw new LoadCollectionException("Cannot load the file. Probably it has wrong extension or was damaged");
+        }
 
     }
 
@@ -49,7 +54,7 @@ public class FileManager {
             throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, IOException, CannotCreateFileException {
 
         if (!application.isStringValid(fileName)) {
-            throw new InvalidFileNameException();
+            throw new InvalidFileNameException("File name is invalid");
         }
 
         if (!fileName.contains(".xml")) {
@@ -59,16 +64,16 @@ public class FileManager {
         File file = new File(fileName);
 
         if (file.exists()) {
-            throw new FileAlreadyExistsException();
+            throw new FileAlreadyExistsException("File with such name already exists");
         }
 
         try {
             boolean fileCreated = file.createNewFile();
             if (!fileCreated) {
-                throw new CannotCreateFileException();
+                throw new CannotCreateFileException("Cannot create the file");
             }
         } catch (SecurityException e) {
-            throw new FilePermissionException();
+            throw new FilePermissionException("You do not have permission to create files in this directory");
         }
 
     }
@@ -77,17 +82,17 @@ public class FileManager {
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException, JAXBException {
 
         if (!application.isStringValid(fileName)) {
-            throw new InvalidFileNameException();
+            throw new InvalidFileNameException("File name is invalid");
         }
 
         File file = new File(fileName);
 
         if (!file.exists()) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException("File with such name wasn't found");
         }
 
         if (!file.canWrite()) {
-            throw new FilePermissionException();
+            throw new FilePermissionException("You do not have permission to save files in this directory");
         }
 
         PrintWriter printWriter = new PrintWriter(file);

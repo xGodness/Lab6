@@ -1,18 +1,5 @@
 package lab5;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import lab5.exceptions.CannotCreateFileException;
-import lab5.exceptions.FileAlreadyExistsException;
-import lab5.exceptions.FilePermissionException;
-import lab5.exceptions.InvalidFileNameException;
-
-import javax.xml.bind.JAXBException;
-
 public class Main {
     public static void main(String[] args) {
         String fileName = null;

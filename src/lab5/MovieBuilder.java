@@ -7,8 +7,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-public interface MovieBuilder {
-    default Movie generateMovie(IOManager ioManager) {
+public class MovieBuilder {
+    private IOManager ioManager;
+    public MovieBuilder(IOManager ioManager) {
+        this.ioManager = ioManager;
+    }
+
+    public Movie buildMovie() {
 
         String input;
 
