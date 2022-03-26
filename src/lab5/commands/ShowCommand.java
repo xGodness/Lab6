@@ -4,6 +4,15 @@ import lab5.MoviesCollection;
 import lab5.movie_classes.Movie;
 
 public class ShowCommand extends Command {
+    private String tag = "show";
+    public String getTag() {
+        return tag;
+    }
+    private String description =
+            "| SHOW                                       | shows all collection's elements\n                                                               |";
+    public String getDescription() {
+        return description;
+    }
 
     public ShowCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);

@@ -1,6 +1,7 @@
 package lab5;
 
 import lab5.movie_classes.*;
+import lab5.movie_classes.enums.*;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class MovieBuilder {
             if (ioManager.isStringValid(input)) {
                 movieName = input;
             } else {
-                ioManager.printlnErr("||| Incorrect input. Movie name must contain at least one alphanumeric or standard special character.");
+                ioManager.printlnErr("Incorrect input. Movie name must contain at least one alphanumeric or standard special character.");
             }
         }
 
@@ -35,14 +36,14 @@ public class MovieBuilder {
          */
         Double x = null;
         Float y = null;
-        while (x == null && y == null) {
+        while (x == null || y == null) {
             input = ioManager.getNextInput("Specify X (double) and Y (float) coordinates: ");
             try {
                 String[] coords = input.split(" ");
                 x = Double.parseDouble(coords[0]);
                 y = Float.parseFloat(coords[1]);
-            } catch (NumberFormatException e) {
-                ioManager.printlnErr("||| Incorrect input. X coordinate must be double-type value, Y coordinate must be float-type value.");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                ioManager.printlnErr("Incorrect input. X coordinate must be double-type value, Y coordinate must be float-type value.");
             }
         }
         Coordinates coordinates = new Coordinates(x, y);
@@ -65,10 +66,10 @@ public class MovieBuilder {
             try {
                 oscarsCount = Integer.parseInt(input);
                 if (oscarsCount < 1) {
-                    ioManager.printlnErr("||| Incorrect input. Oscars count must be positive integer or null.");
+                    ioManager.printlnErr("Incorrect input. Oscars count must be positive integer or null.");
                 }
             } catch (NumberFormatException e) {
-                ioManager.printlnErr("||| Incorrect input. Oscars count must be positive integer or null.");
+                ioManager.printlnErr("Incorrect input. Oscars count must be positive integer or null.");
             }
         }
 
@@ -85,7 +86,7 @@ public class MovieBuilder {
             if (ioManager.isStringValid(input)) {
                 tagline = input;
             } else {
-                ioManager.printlnErr("||| Incorrect input. Tagline must contain only standard characters or be a null.");
+                ioManager.printlnErr("Incorrect input. Tagline must contain only standard characters or be a null.");
             }
         }
 
@@ -94,11 +95,11 @@ public class MovieBuilder {
          */
         MovieGenre genre = null;
         while (genre == null) {
-            input = ioManager.getNextInput("Specify movie genre (Action, Western, Drama, Musical or Sci-fi): ");
+            input = ioManager.getNextInput("Specify movie genre (Action, Western, Drama, Musical or Sci-fi): ").toLowerCase(Locale.ROOT);
             try {
-                genre = MovieGenre.valueOf(input);
+                genre = MovieGenre.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnOut("||| Incorrect input. Movie genre must be Action, Western, Drama, Musical or Sci-fi.");
+                ioManager.printlnErr("Incorrect input. Movie genre must be Action, Western, Drama, Musical or Sci-fi.");
             }
         }
 
@@ -109,9 +110,9 @@ public class MovieBuilder {
         while (mpaaRating == null) {
             input = ioManager.getNextInput("Specify MPAA rating (PG, PG_13, R): ").toLowerCase(Locale.ROOT);
             try {
-                mpaaRating = MpaaRating.valueOf(input);
+                mpaaRating = MpaaRating.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnErr("||| Incorrect input. MPAA rating must be PG, PG_13 or R.");
+                ioManager.printlnErr("Incorrect input. MPAA rating must be PG, PG_13 or R.");
             }
         }
 
@@ -124,7 +125,7 @@ public class MovieBuilder {
             if (ioManager.isStringValid(input)) {
                 personName = input;
             } else {
-                ioManager.printlnErr("||| Incorrect input. Screenwriter's name must contain only standard characters, at least one must be provided.");
+                ioManager.printlnErr("Incorrect input. Screenwriter's name must contain only standard characters, at least one must be provided.");
             }
         }
 
@@ -138,15 +139,17 @@ public class MovieBuilder {
             if (input.equals("")) {
                 break;
             }
-            String[] birthDate = input.split(".");
+            String[] birthDate = input.split("\\.");
             try {
                 birthday = LocalDate.of(
                         Integer.parseInt(birthDate[2]),
                         Integer.parseInt(birthDate[1]),
                         Integer.parseInt(birthDate[0])
                 );
-            } catch (IllegalArgumentException | DateTimeException e) {
-                ioManager.printlnErr("||| Incorrect input. Year, month and day must be valid integers.");
+            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+                ioManager.printlnErr("Incorrect input. Year, month and day must be valid integers.");
+            } catch (DateTimeException e) {
+                ioManager.printlnErr("Incorrect input. Date must have proper format.");
             }
 
         }
@@ -158,9 +161,9 @@ public class MovieBuilder {
         while (eyeColor == null) {
             input = ioManager.getNextInput("Specify screenwriter's eye color (green, red, white or brown): ").toLowerCase(Locale.ROOT);
             try {
-                eyeColor = EyeColor.valueOf(input);
+                eyeColor = EyeColor.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnErr("||| Incorrect input. Eye color must be green, red, white or brown.");
+                ioManager.printlnErr("Incorrect input. Eye color must be green, red, white or brown.");
             }
         }
 
@@ -171,9 +174,9 @@ public class MovieBuilder {
         while (hairColor == null) {
             input = ioManager.getNextInput("Specify screenwriter's hair color (blue, yellow or white): ").toLowerCase(Locale.ROOT);
             try {
-                hairColor = HairColor.valueOf(input);
+                hairColor = HairColor.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnErr("||| Incorrect input. Eye color must be blue, yellow or white.");
+                ioManager.printlnErr("Incorrect input. Eye color must be blue, yellow or white.");
             }
         }
 
@@ -184,9 +187,9 @@ public class MovieBuilder {
         while (nationality == null) {
             input = ioManager.getNextInput("Specify screenwriter's nationality (UK, USA, Vatican, South Korea, North Korea): ").toLowerCase(Locale.ROOT);
             try {
-                nationality = Country.valueOf(input);
+                nationality = Country.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnErr("||| Incorrect input. Nationality must be UK, USA, Vatican, South Korea or North Korea.");
+                ioManager.printlnErr("Incorrect input. Nationality must be UK, USA, Vatican, South Korea or North Korea.");
             }
         }
 
@@ -196,19 +199,20 @@ public class MovieBuilder {
         Location location = null;
         while (location == null) {
             input = ioManager.getNextInput("Specify location's X (integer), Y (double) and name (string) values: ");
-            if (input.equals("")) {
-                break;
-            }
+
             String[] locationValues = input.split(" ");
             try {
                 int locationX = Integer.parseInt(locationValues[0]);
                 double locationY = Double.parseDouble(locationValues[1]);
                 String locationName = locationValues[2];
-                if (ioManager.isStringValid(locationName)) {
-                    ioManager.printlnErr("||| Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
+                if (!ioManager.isStringValid(locationName)) {
+                    ioManager.printlnErr("Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
+                } else {
+                    location = new Location(locationX, locationY, locationName);
                 }
-            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
-                ioManager.printlnErr("||| Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
+
+            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException e) {
+                ioManager.printlnErr("Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
             }
         }
         Person screenwriter = new Person(personName, birthday, eyeColor, hairColor, nationality, location);

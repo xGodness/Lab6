@@ -16,15 +16,19 @@ public class MoviesCollection {
     private LinkedList<Movie> collection = new LinkedList<Movie>();
 
     private final String initDateTime;
-    private HashMap<Long, Movie> identificators;
-    private HashSet<Long> usedIds;
+    private HashMap<Long, Movie> identificators = new HashMap<Long, Movie>();
+    private HashSet<Long> usedIds = new HashSet<Long>();
 
+    private IOManager ioManager;
+    private MovieBuilder movieBuilder;
 
-    public MoviesCollection() {
+    public MoviesCollection(IOManager ioManager) {
+        this.ioManager = ioManager;
+        this.movieBuilder = new MovieBuilder(ioManager);
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        initDateTime = dateFormatter.format(date);
+        initDateTime = dateFormatter.format(new Date());
     }
+
 
     public Movie removeHead() throws EmptyCollectionException {
         if (collection.isEmpty()) {
@@ -42,7 +46,8 @@ public class MoviesCollection {
         usedIds.clear();
     }
 
-    public void addMovie(Movie movie) {
+    public void addMovie() {
+        Movie movie = movieBuilder.buildMovie();
         Long id = generateNextId();
         movie.setId(id);
         identificators.put(id, movie);
@@ -50,10 +55,11 @@ public class MoviesCollection {
         collection.add(movie);
     }
 
-    public void updateMovie(Long id, Movie movie) throws IdException {
+    public void updateMovie(Long id) throws IdException {
         if (!checkId(id)) {
             throw new IdException("Movie with id " + id + " doesn't exist");
         }
+        Movie movie = movieBuilder.buildMovie();
         identificators.replace(id, movie);
     }
 
@@ -67,6 +73,10 @@ public class MoviesCollection {
 
     public LinkedList<Movie> getCollection() {
         return collection;
+    }
+
+    public IOManager getIOManager() {
+        return ioManager;
     }
 
     public String getInitDateTime() {

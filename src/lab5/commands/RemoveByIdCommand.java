@@ -1,22 +1,28 @@
 package lab5.commands;
 
-import lab5.MovieBuilder;
 import lab5.MoviesCollection;
 import lab5.exceptions.collection_exceptions.IdException;
 
 public class RemoveByIdCommand extends Command {
+    private String tag = "remove_by_id";
+    public String getTag() {
+        return tag;
+    }
 
-    private MovieBuilder movieBuilder;
+    private String description =
+            "| REMOVE_BY_ID [id]                          | removes element with given id\n                                                                 |";
+    public String getDescription() {
+        return description;
+    }
 
-    public RemoveByIdCommand(MoviesCollection moviesCollection, MovieBuilder movieBuilder) {
+    public RemoveByIdCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
-        this.movieBuilder = movieBuilder;
     }
 
     @Override
     public String execute(String[] args) throws IdException {
         if (args.length == 0) {
-            throw new IdException("Cannot update by id because id wasn't specified");
+            throw new IdException("Cannot remove by id because id wasn't specified");
         }
         try {
             Long id = Long.valueOf(args[0]);
@@ -29,7 +35,7 @@ public class RemoveByIdCommand extends Command {
             }
 
             getMoviesCollection().removeMovie(id);
-            return "Movie was removed by id " + id;
+            return "Movie with id " + id + "  has been removed";
 
         } catch (NumberFormatException e) {
             throw new IdException("Incorrect input. Positive integer expected");

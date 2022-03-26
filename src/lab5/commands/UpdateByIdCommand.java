@@ -1,17 +1,22 @@
 package lab5.commands;
 
-import lab5.MovieBuilder;
 import lab5.MoviesCollection;
 import lab5.exceptions.collection_exceptions.IdException;
-import lab5.movie_classes.Movie;
 
 public class UpdateByIdCommand extends Command {
+    private String tag = "update_by_id";
+    public String getTag() {
+        return tag;
+    }
 
-    private MovieBuilder movieBuilder;
+    private String description =
+            "| UPDATE [id] {element}                      | updates element with given id\n                                                                 |";
+    public String getDescription() {
+        return description;
+    }
 
-    public UpdateByIdCommand(MoviesCollection moviesCollection, MovieBuilder movieBuilder) {
+    public UpdateByIdCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
-        this.movieBuilder = movieBuilder;
     }
 
     @Override
@@ -29,9 +34,8 @@ public class UpdateByIdCommand extends Command {
                 throw new IdException("Movie with such id doesn't exist");
             }
 
-            Movie movie = movieBuilder.buildMovie();
-            getMoviesCollection().updateMovie(id, movie);
-            return "Movie was updated by id " + id + " ( " + movie.toString() + " )";
+            getMoviesCollection().updateMovie(id);
+            return "Movie with id " + id + " has been updated";
 
 
         } catch (NumberFormatException e) {

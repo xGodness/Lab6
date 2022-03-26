@@ -11,7 +11,7 @@ public class Main {
         Application application = new Application();
         application.fileFetch(fileName);
 
-
+        application.consoleStart(fileName);
 
 
     }

@@ -1,5 +1,9 @@
 package lab5.movie_classes;
 
+import lab5.movie_classes.enums.Country;
+import lab5.movie_classes.enums.EyeColor;
+import lab5.movie_classes.enums.HairColor;
+
 import java.time.LocalDate;
 
 public class Person {
@@ -13,11 +17,22 @@ public class Person {
 
     public Person(String name, LocalDate birthday, EyeColor eyeColor, HairColor hairColor, Country nationality, Location location) {
         this.name = name;
-        this. birthday = birthday;
+        this.birthday = birthday;
         this.eyeColor = eyeColor;
         this.hairColor = hairColor;
         this.nationality = nationality;
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name=" + name +
+                ", birthday=" + birthday +
+                ", eyeColor=" + eyeColor +
+                ", hairColor=" + hairColor +
+                ", nationality=" + nationality +
+                ", location=" + location +
+                "  }";
+    }
 }

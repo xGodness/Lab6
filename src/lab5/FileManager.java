@@ -20,12 +20,15 @@ public class FileManager {
         this.application = application;
     }
 
+
     public MoviesCollection load(String fileName)
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException, LoadCollectionException {
 
         if (!application.isStringValid(fileName)) {
             throw new InvalidFileNameException("File name is invalid");
         }
+
+        fileName = checkExtemsion(fileName);
 
         File file = new File(fileName);
 
@@ -45,10 +48,11 @@ public class FileManager {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (MoviesCollection) unmarshaller.unmarshal(streamReader);
         } catch (JAXBException e) {
-            throw new LoadCollectionException("Cannot load the file. Probably it has wrong extension or was damaged");
+            throw new LoadCollectionException("Cannot load the file. Probably it is empty, has wrong extension or was damaged");
         }
 
     }
+
 
     public void create(String fileName)
             throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, IOException, CannotCreateFileException {
@@ -57,9 +61,7 @@ public class FileManager {
             throw new InvalidFileNameException("File name is invalid");
         }
 
-        if (!fileName.contains(".xml")) {
-            fileName += ".xml";
-        }
+        fileName = checkExtemsion(fileName);
 
         File file = new File(fileName);
 
@@ -78,12 +80,15 @@ public class FileManager {
 
     }
 
+
     public void save(MoviesCollection collection, String fileName)
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException, JAXBException {
 
         if (!application.isStringValid(fileName)) {
             throw new InvalidFileNameException("File name is invalid");
         }
+
+        fileName = checkExtemsion(fileName);
 
         File file = new File(fileName);
 
@@ -104,7 +109,12 @@ public class FileManager {
 
     }
 
-
+    private String checkExtemsion(String fileName) {
+        if (!fileName.contains(".xml")) {
+            return fileName + ".xml";
+        }
+        return fileName;
+    }
 
 
 }

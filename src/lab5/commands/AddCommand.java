@@ -1,25 +1,27 @@
 package lab5.commands;
 
-import lab5.IOManager;
-import lab5.MovieBuilder;
 import lab5.MoviesCollection;
-import lab5.movie_classes.Movie;
 
 public class AddCommand extends Command {
+    private String tag = "add";
+    public String getTag() {
+        return tag;
+    }
 
-    private IOManager ioManager;
-    private MovieBuilder movieBuilder;
+    private String description =
+            "| ADD {element}                              | adds new element to collection\n                                                                |";
+    public String getDescription() {
+        return description;
+    }
 
-    public AddCommand(MoviesCollection moviesCollection, MovieBuilder movieBuilder) {
+    public AddCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
-        this.movieBuilder = movieBuilder;
     }
 
     @Override
     public String execute(String[] args) {
-        Movie movie = movieBuilder.buildMovie();
-        super.getMoviesCollection().addMovie(movie);
-        return "Movie was added ( " + movie + ")";
+        super.getMoviesCollection().addMovie();
+        return "New movie has been added";
     }
 
 }

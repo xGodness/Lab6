@@ -1,5 +1,8 @@
 package lab5.movie_classes;
 
+import lab5.movie_classes.enums.MovieGenre;
+import lab5.movie_classes.enums.MpaaRating;
+
 import java.time.LocalDateTime;
 
 public class Movie {
@@ -33,16 +36,16 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", oscarsCount=" + oscarsCount +
-                ", tagline='" + tagline + '\'' +
-                ", genre=" + genre +
-                ", mpaaRating=" + mpaaRating +
-                ", screenwriter=" + screenwriter +
-                '}';
+                " \n id=" + id +
+                ",\n name=" + name +
+                ",\n coordinates=" + coordinates +
+                ",\n creationDate=" + creationDate +
+                ",\n oscarsCount=" + oscarsCount +
+                ",\n tagline=" + tagline +
+                ",\n genre=" + genre +
+                ",\n mpaaRating=" + mpaaRating +
+                ",\n screenwriter=" + screenwriter +
+                "\n}";
     }
 
     // Getters

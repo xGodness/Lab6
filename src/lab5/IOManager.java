@@ -7,11 +7,13 @@ public class IOManager {
     private StringValidator stringValidator;
 
     private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\t\u001B[32m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001b[33m";
     private static final String ANSI_RESET = "\033[0m";
 
     public IOManager() {
         scanner = new Scanner(System.in).useDelimiter("\n");
+        stringValidator = new StringValidator();
     }
 
     public String getNextInput() {
@@ -40,6 +42,14 @@ public class IOManager {
 
     public void printlnErr(String message) {
         System.out.println(ANSI_RED + message + ANSI_RESET);
+    }
+
+    public void printlnHelp(String message) {
+        System.out.println(ANSI_YELLOW + message + ANSI_RESET);
+    }
+
+    public void printlnSuccess(String message) {
+        System.out.println(ANSI_GREEN + message + ANSI_RESET);
     }
 
     public boolean isStringValid(String string) {
