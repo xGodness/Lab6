@@ -1,6 +1,10 @@
-package lab5;
+package lab5.collection;
 
-import lab5.movie_classes.*;
+import lab5.IO.IOManager;
+import lab5.movie_classes.Coordinates;
+import lab5.movie_classes.Location;
+import lab5.movie_classes.Movie;
+import lab5.movie_classes.Person;
 import lab5.movie_classes.enums.*;
 
 import java.time.DateTimeException;
@@ -10,6 +14,7 @@ import java.util.Locale;
 
 public class MovieBuilder {
     private IOManager ioManager;
+
     public MovieBuilder(IOManager ioManager) {
         this.ioManager = ioManager;
     }
@@ -17,6 +22,19 @@ public class MovieBuilder {
     public Movie buildMovie() {
 
         String input;
+
+        input = ioManager.getNextInput("Auto? (y for yes): ");
+        if (input.equalsIgnoreCase("y")) {
+            String movieName = "name";
+            Coordinates coordinates = new Coordinates(1.0, 1F);
+            LocalDateTime creationDate = LocalDateTime.now();
+            Integer oscarsCount = 1;
+            String tagline = "tagline";
+            MovieGenre genre = MovieGenre.ACTION;
+            MpaaRating mpaaRating = MpaaRating.PG;
+            Person screenwriter = new Person("smb", null, EyeColor.BROWN, HairColor.BLUE, Country.NORTH_KOREA, new Location(1, 2.0, "loc_name"));
+            return new Movie(movieName, coordinates, creationDate, oscarsCount, tagline, genre, mpaaRating, screenwriter);
+        }
 
         /* *
          * Movie name field fetch

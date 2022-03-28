@@ -1,29 +1,29 @@
 package lab5.commands;
 
-import lab5.MoviesCollection;
+import lab5.collection.MoviesCollection;
 
 public class InfoCommand extends Command {
     private String tag = "info";
+    private String description = "INFO ... provides information about collection";
+
+    public InfoCommand(MoviesCollection collection) {
+        super(collection);
+    }
+
     public String getTag() {
         return tag;
     }
 
-    private String description =
-            "| INFO                                       | provides information about current collection\n                                                 |";
     public String getDescription() {
         return description;
-    }
-
-    public InfoCommand(MoviesCollection collection) {
-        super(collection);
     }
 
     @Override
     public String execute(String[] args) {
         return
                 "Collection type     : " + super.getMoviesCollection().getClass() + "\n" +
-                "Initialization date : " + super.getMoviesCollection().getInitDateTime() + "\n" +
-                "Collection size     : " + super.getMoviesCollection().getCollectionSize();
+                        "Initialization date : " + super.getMoviesCollection().getInitDateTime() + "\n" +
+                        "Collection size     : " + super.getMoviesCollection().getCollectionSize();
     }
 
 }

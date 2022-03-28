@@ -1,6 +1,8 @@
-package lab5;
+package lab5.app;
 
+import lab5.collection.MoviesCollection;
 import lab5.exceptions.collection_exceptions.LoadCollectionException;
+import lab5.exceptions.collection_exceptions.SaveCollectionException;
 import lab5.exceptions.file_exceptions.CannotCreateFileException;
 import lab5.exceptions.file_exceptions.FileAlreadyExistsException;
 import lab5.exceptions.file_exceptions.FilePermissionException;
@@ -10,7 +12,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
 import java.io.*;
 
 public class FileManager {
@@ -28,7 +29,7 @@ public class FileManager {
             throw new InvalidFileNameException("File name is invalid");
         }
 
-        fileName = checkExtemsion(fileName);
+        fileName = checkExtension(fileName);
 
         File file = new File(fileName);
 
@@ -61,7 +62,7 @@ public class FileManager {
             throw new InvalidFileNameException("File name is invalid");
         }
 
-        fileName = checkExtemsion(fileName);
+        fileName = checkExtension(fileName);
 
         File file = new File(fileName);
 
@@ -81,14 +82,14 @@ public class FileManager {
     }
 
 
-    public void save(MoviesCollection collection, String fileName)
-            throws InvalidFileNameException, FilePermissionException, FileNotFoundException, JAXBException {
+    public boolean save(MoviesCollection collection, String fileName)
+            throws InvalidFileNameException, FilePermissionException, FileNotFoundException, SaveCollectionException {
 
         if (!application.isStringValid(fileName)) {
             throw new InvalidFileNameException("File name is invalid");
         }
 
-        fileName = checkExtemsion(fileName);
+        fileName = checkExtension(fileName);
 
         File file = new File(fileName);
 
@@ -102,14 +103,23 @@ public class FileManager {
 
         PrintWriter printWriter = new PrintWriter(file);
 
-        JAXBContext context = JAXBContext.newInstance(MoviesCollection.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(collection, printWriter);
+        try {
+            JAXBContext context = JAXBContext.newInstance(MoviesCollection.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(collection, printWriter);
+        } catch (JAXBException e) {
+//            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw new SaveCollectionException("Cannot save collection to the file. Probably file was damaged or doesn't exist");
+        }
+
+
+        return true;
 
     }
 
-    private String checkExtemsion(String fileName) {
+    private String checkExtension(String fileName) {
         if (!fileName.contains(".xml")) {
             return fileName + ".xml";
         }

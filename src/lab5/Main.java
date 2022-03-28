@@ -1,5 +1,7 @@
 package lab5;
 
+import lab5.app.Application;
+
 public class Main {
     public static void main(String[] args) {
         String fileName = null;
@@ -9,7 +11,7 @@ public class Main {
         }
 
         Application application = new Application();
-        application.fileFetch(fileName);
+        application.loadCollection(fileName);
 
         application.consoleStart(fileName);
 

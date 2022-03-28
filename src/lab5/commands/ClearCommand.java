@@ -1,21 +1,21 @@
 package lab5.commands;
 
-import lab5.MoviesCollection;
+import lab5.collection.MoviesCollection;
 
 public class ClearCommand extends Command {
     private String tag = "clear";
+    private String description = "CLEAR ... clears the collection";
+
+    public ClearCommand(MoviesCollection moviesCollection) {
+        super(moviesCollection);
+    }
+
     public String getTag() {
         return tag;
     }
 
-    private String description =
-            "| CLEAR                                      | clears collection\n                                                                             |";
     public String getDescription() {
         return description;
-    }
-
-    public ClearCommand(MoviesCollection moviesCollection) {
-        super(moviesCollection);
     }
 
     @Override

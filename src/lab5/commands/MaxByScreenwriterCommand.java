@@ -4,11 +4,11 @@ import lab5.collection.MoviesCollection;
 import lab5.exceptions.collection_exceptions.CollectionException;
 import lab5.movie_classes.Movie;
 
-public class ShowCommand extends Command {
-    private String tag = "show";
-    private String description = "SHOW ... shows all collection's elements";
+public class MaxByScreenwriterCommand extends Command {
+    private String tag = "max_by_screenwriter";
+    private String description = "MAX_BY_SCREENWRITER ... shows element with the biggest screenwriter field value";
 
-    public ShowCommand(MoviesCollection moviesCollection) {
+    public MaxByScreenwriterCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
@@ -22,16 +22,10 @@ public class ShowCommand extends Command {
 
     @Override
     public String execute(String[] args) throws CollectionException {
-        MoviesCollection moviesCollection = super.getMoviesCollection();
-        if (moviesCollection.getCollectionSize() == 0) {
+        Movie result = getMoviesCollection().maxByScreenwriter();
+        if (result == null) {
             throw new CollectionException("Collection is empty");
-        }
-        StringBuilder result = new StringBuilder();
-        for (Movie movie : moviesCollection.getCollection()) {
-            result.append(movie.toString()).append("\n");
         }
         return result.toString();
     }
-
-
 }

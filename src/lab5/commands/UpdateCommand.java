@@ -1,27 +1,28 @@
 package lab5.commands;
 
-import lab5.MoviesCollection;
+import lab5.collection.MoviesCollection;
 import lab5.exceptions.collection_exceptions.IdException;
 
-public class UpdateByIdCommand extends Command {
-    private String tag = "update_by_id";
+public class UpdateCommand extends Command {
+    private String tag = "update";
+    private String description =
+            "UPDATE [id] {element} ... updates element with given id";
+
+    public UpdateCommand(MoviesCollection moviesCollection) {
+        super(moviesCollection);
+    }
+
     public String getTag() {
         return tag;
     }
 
-    private String description =
-            "| UPDATE [id] {element}                      | updates element with given id\n                                                                 |";
     public String getDescription() {
         return description;
     }
 
-    public UpdateByIdCommand(MoviesCollection moviesCollection) {
-        super(moviesCollection);
-    }
-
     @Override
     public String execute(String[] args) throws IdException {
-        if (args.length == 0) {
+        if (args == null || args.length == 0) {
             throw new IdException("Cannot update by id because id wasn't specified");
         }
         try {
