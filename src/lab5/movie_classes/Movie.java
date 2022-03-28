@@ -50,6 +50,9 @@ public class Movie
 
     @Override
     public int compareTo(Movie m) {
+        if (oscarsCount == null && m.getOscarsCount() == null) return 0;
+        if (oscarsCount == null) return m.getOscarsCount();
+        if (m.getOscarsCount() == null) return oscarsCount;
         return oscarsCount - m.getOscarsCount();
     }
 

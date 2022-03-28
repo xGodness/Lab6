@@ -148,9 +148,10 @@ public class MoviesCollection {
     }
 
     public int countLessThanOscarsCount(int oscarsValue) {
+        if (oscarsValue < 1) return 0;
         int cnt = 0;
         for (Movie movie : collection) {
-            if (movie.getOscarsCount() < oscarsValue) {
+            if (movie.getOscarsCount() == null || movie.getOscarsCount() < oscarsValue) {
                 cnt++;
             }
         }
