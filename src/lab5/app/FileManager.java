@@ -14,6 +14,11 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 
+/**
+ * Manages work with files
+ */
+
+
 public class FileManager {
     private Application application;
 
@@ -118,6 +123,23 @@ public class FileManager {
         return true;
 
     }
+
+
+    public File openFile(String fileName) throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
+        if (!application.isStringValid(fileName)) {
+            throw new InvalidFileNameException("File name is invalid");
+        }
+        File file = new File(fileName);
+        if (!file.exists()) {
+            throw new FileNotFoundException("File with such name wasn't found");
+        }
+        if (!file.canRead()) {
+            throw new FilePermissionException("You do not have permission to read this file");
+        }
+        return file;
+
+    }
+
 
     private String checkExtension(String fileName) {
         if (!fileName.contains(".xml")) {

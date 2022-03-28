@@ -10,9 +10,17 @@ import lab5.exceptions.file_exceptions.CannotCreateFileException;
 import lab5.exceptions.file_exceptions.FileAlreadyExistsException;
 import lab5.exceptions.file_exceptions.FilePermissionException;
 import lab5.exceptions.file_exceptions.InvalidFileNameException;
+import lab5.movie_classes.Movie;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
+
+/**
+ * Class-connector
+ * responsible for whole system processes coordinating
+ */
+
 
 public class Application {
     private IOManager ioManager;
@@ -42,9 +50,27 @@ public class Application {
         currentFileName = fileName;
         boolean collectionWasLoaded = false;
         while (!collectionWasLoaded) {
-            ioManager.printlnStatus("Loading from \"" + currentFileName + "\"...");
+//            ioManager.printlnStatus("Loading from \"" + currentFileName + "\"...");
             try {
-                moviesCollection = fileManager.load(currentFileName);
+                MoviesCollection rawMoviesCollection = fileManager.load(currentFileName);
+                LinkedList<Movie> rawCollection = rawMoviesCollection.getCollection();
+                LinkedList<Movie> wrongMovies = new LinkedList<>();
+                for (int i = 0; i < rawCollection.size(); i++) {
+                    if (wrongMovies.contains(rawCollection.get(i))) continue;
+                    if (rawCollection.get(i).getId() < 1) {
+                        wrongMovies.add(rawCollection.get(i));
+                        continue;
+                    }
+                    for (int j = i + 1; j < rawCollection.size(); j++) {
+                        if (wrongMovies.contains(rawCollection.get(j))) continue;
+                        if (rawCollection.get(i).getId() == rawCollection.get(j).getId()) {
+                            wrongMovies.add(rawCollection.get(j));
+                        }
+                    }
+                }
+                rawCollection.removeAll(wrongMovies);
+                moviesCollection = rawMoviesCollection;
+
                 moviesCollection.setup(this);
                 ioManager.printlnSuccess("Collection has been loaded from \"" + currentFileName + "\"");
                 collectionWasLoaded = true;
@@ -147,6 +173,10 @@ public class Application {
 
     public MoviesCollection getMoviesCollection() {
         return moviesCollection;
+    }
+
+    public FileManager getFileManager() {
+        return fileManager;
     }
 
 

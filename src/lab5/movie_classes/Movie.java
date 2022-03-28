@@ -9,6 +9,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDateTime;
 
+/**
+ * Movie class
+ * Class that collection is storing
+ */
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Movie
         implements Comparable<Movie> {

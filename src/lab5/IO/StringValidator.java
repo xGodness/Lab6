@@ -3,6 +3,10 @@ package lab5.IO;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * String validator for checking if string is correct
+ */
+
 public class StringValidator {
 
     private final Pattern charsetValidationPattern = Pattern.compile("[ \\wА-Яа-яЁё!\"#$%&'()*+,\\-./:;<=>?@\\[\\]^_`{|}\\\\~№]+");

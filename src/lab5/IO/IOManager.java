@@ -1,18 +1,46 @@
 package lab5.IO;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.Stack;
+
+/**
+ * Input-Output Manager
+ */
 
 public class IOManager {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_YELLOW = "\u001b[33m";
     private static final String ANSI_RESET = "\033[0m";
+    private final Scanner defaultScanner = new Scanner(System.in).useDelimiter("\n");
     private Scanner scanner;
     private StringValidator stringValidator;
 
+    private Stack<Scanner> scannerStack = new Stack<>();
+
     public IOManager() {
-        scanner = new Scanner(System.in).useDelimiter("\n");
+        scanner = defaultScanner;
         stringValidator = new StringValidator();
+    }
+
+    public void pushScanner(Scanner scanner) {
+        scannerStack.push(scanner);
+        this.scanner = scanner;
+    }
+
+    public void popScanner() {
+        scannerStack.pop();
+        if (scannerStack.isEmpty()) {
+            scanner = defaultScanner;
+        } else {
+            scanner = scannerStack.peek();
+        }
+    }
+
+    public void clearScannerStack() {
+        scannerStack.clear();
+        scanner = defaultScanner;
     }
 
     public String getNextInput() {
@@ -21,7 +49,8 @@ public class IOManager {
             try {
                 input = scanner.nextLine();
             } catch (Exception e) {
-                printOut("Invalid input error. Try again: ");
+                printlnOut("Invalid input error. Try again: ");
+                scanner = new Scanner(System.in).useDelimiter("\n");
             }
         }
         return input;
@@ -31,6 +60,7 @@ public class IOManager {
         printOut(preMessage);
         return getNextInput();
     }
+
 
     public void printOut(String message) {
         System.out.print(message);

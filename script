@@ -1,0 +1,9 @@
+add
+y
+add
+y
+show
+remove_head
+update 3
+y
+execute_script script2323

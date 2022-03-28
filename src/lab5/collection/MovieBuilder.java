@@ -12,6 +12,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
+/**
+ * Creating new movie through Console IO
+ */
+
 public class MovieBuilder {
     private IOManager ioManager;
 
@@ -23,6 +27,7 @@ public class MovieBuilder {
 
         String input;
 
+        /*
         input = ioManager.getNextInput("Auto? (y for yes): ");
         if (input.equalsIgnoreCase("y")) {
             String movieName = "name";
@@ -34,7 +39,7 @@ public class MovieBuilder {
             MpaaRating mpaaRating = MpaaRating.PG;
             Person screenwriter = new Person("smb", null, EyeColor.BROWN, HairColor.BLUE, Country.NORTH_KOREA, new Location(1, 2.0, "loc_name"));
             return new Movie(movieName, coordinates, creationDate, oscarsCount, tagline, genre, mpaaRating, screenwriter);
-        }
+        } */
 
         /* *
          * Movie name field fetch

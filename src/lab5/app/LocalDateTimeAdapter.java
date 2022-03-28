@@ -4,6 +4,10 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Adapter-class for JAXB
+ */
+
 public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
 
     private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

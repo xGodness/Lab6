@@ -3,6 +3,10 @@ package lab5.app;
 import lab5.commands.CommandImpl;
 import lab5.exceptions.collection_exceptions.CollectionException;
 
+/**
+ * Executes commands
+ */
+
 public class Invoker {
     private Application application;
     private CommandImpl command;

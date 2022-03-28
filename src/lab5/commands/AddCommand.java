@@ -3,8 +3,8 @@ package lab5.commands;
 import lab5.collection.MoviesCollection;
 
 public class AddCommand extends Command {
+    public static final String description = "ADD {element} ... adds new element to collection";
     private String tag = "add";
-    private String description = "ADD {element} ... adds new element to collection";
 
     public AddCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);

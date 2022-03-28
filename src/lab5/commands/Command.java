@@ -2,7 +2,12 @@ package lab5.commands;
 
 import lab5.collection.MoviesCollection;
 
+/**
+ * Abstract command class
+ */
+
 public abstract class Command implements CommandImpl {
+    public String description = "";
     private MoviesCollection moviesCollection;
 
     public Command(MoviesCollection moviesCollection) {
@@ -14,7 +19,7 @@ public abstract class Command implements CommandImpl {
     }
 
     public String getDescription() {
-        return "";
+        return description;
     }
 
     public MoviesCollection getMoviesCollection() {

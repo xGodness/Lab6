@@ -1,7 +1,7 @@
 package lab5.collection;
 
-import lab5.app.Application;
 import lab5.IO.IOManager;
+import lab5.app.Application;
 import lab5.exceptions.collection_exceptions.CollectionException;
 import lab5.exceptions.collection_exceptions.EmptyCollectionException;
 import lab5.exceptions.collection_exceptions.IdException;
@@ -14,11 +14,16 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Collection Manager class
+ * Coordinates all work with the collection
+ */
 
 @XmlRootElement(name = "Collection")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MoviesCollection {
     private LinkedList<Movie> collection = new LinkedList<>();
+    @XmlTransient
     private LinkedList<Movie> sortedCollection = new LinkedList<>();
 
 
@@ -90,6 +95,10 @@ public class MoviesCollection {
         }
         Movie movie = movieBuilder.buildMovie();
         movie.setId(id);
+        int tmpId = collection.indexOf(identifiers.get(id));
+        if (tmpId < 1) {
+            throw new IdException("Movie with id " + id + " doesn't exist");
+        }
         collection.set(
                 collection.indexOf(identifiers.get(id)),
                 movie
@@ -173,7 +182,7 @@ public class MoviesCollection {
     ________________________________________________________________________________________________________________*/
 
     public boolean checkId(Long id) { //TODO check ids after loading
-        if (id == null) {
+        if (id == null || id < 1) {
             return false;
         }
         return usedIds.contains(id);
