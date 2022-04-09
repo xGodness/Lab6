@@ -209,7 +209,7 @@ public class MoviesCollection {
 
     public void updateSortedCollection() { //TODO update after each change
         sortedCollection = (LinkedList<Movie>) collection.clone();
-        sortedCollection.sort((m1, m2) -> m1.getOscarsCount() - m2.getOscarsCount());
+        sortedCollection.sort((m1, m2) -> m1.compareTo(m2));
     }
 
     /*________________________________________________________________________________________________________________

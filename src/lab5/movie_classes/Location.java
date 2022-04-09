@@ -8,7 +8,7 @@ public class Location {
 
     private int x;
     private double y;
-    private String name; //Строка не может быть пустой, Поле не может быть null
+    private String name;
 
     public Location() {
     }
@@ -45,10 +45,8 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "x=" + x +
-                ", y=" + y +
-                ", name=" + name +
-                '}';
+        return  "\t\tName : " + name + "\n" +
+                "\t\tX    : " + x + "\n" +
+                "\t\tY    : " + y;
     }
 }

@@ -1,23 +1,26 @@
 package lab5.movie_classes;
 
+import lab5.app.LocalDateAdapter;
 import lab5.movie_classes.enums.Country;
 import lab5.movie_classes.enums.EyeColor;
 import lab5.movie_classes.enums.HairColor;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Person
         implements Comparable<Person> {
 
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private LocalDate birthday; //Поле может быть null
-    private EyeColor eyeColor; //Поле не может быть null
-    private HairColor hairColor; //Поле может быть null
-    private Country nationality; //Поле не может быть null
-    private Location location; //Поле может быть null
+    private String name;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    private LocalDate birthday;
+    private EyeColor eyeColor;
+    private HairColor hairColor;
+    private Country nationality;
+    private Location location;
 
     public Person() {
     }
@@ -86,13 +89,11 @@ public class Person
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name=" + name +
-                ", birthday=" + birthday +
-                ", eyeColor=" + eyeColor +
-                ", hairColor=" + hairColor +
-                ", nationality=" + nationality +
-                ", location=" + location +
-                "  }";
+        return  "\tName        : " + name + "\n" +
+                "\tBirthday    : " + ((birthday == null) ? "" : birthday) + "\n" +
+                "\tEye color   : " + eyeColor + "\n" +
+                "\tHair color  : " + hairColor + "\n" +
+                "\tNationality : " + nationality + "\n" +
+                "\tLocation      \n" + location;
     }
 }

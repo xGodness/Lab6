@@ -1,5 +1,6 @@
 package lab5.IO;
 
+import java.beans.Transient;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +9,7 @@ import java.util.regex.Pattern;
  */
 
 public class StringValidator {
+
 
     private final Pattern charsetValidationPattern = Pattern.compile("[ \\wА-Яа-яЁё!\"#$%&'()*+,\\-./:;<=>?@\\[\\]^_`{|}\\\\~№]+");
     private final Pattern spacesValidationPattern = Pattern.compile("\\s+");

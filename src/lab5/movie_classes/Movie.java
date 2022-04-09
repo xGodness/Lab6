@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Movie class
@@ -18,16 +19,18 @@ import java.time.LocalDateTime;
 public class Movie
         implements Comparable<Movie> {
 
-    private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
+    private long id;
+    private String name;
+    private Coordinates coordinates;
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-    private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Integer oscarsCount; //Значение поля должно быть больше 0, Поле может быть null
-    private String tagline; //Строка не может быть пустой, Поле может быть null
-    private MovieGenre genre; //Поле не может быть null
-    private MpaaRating mpaaRating; //Поле не может быть null
+    private LocalDateTime creationDate;
+    private Integer oscarsCount;
+    private String tagline;
+    private MovieGenre genre;
+    private MpaaRating mpaaRating;
     private Person screenwriter;
+
+    private String creationDateString;
 
     public Movie() {
     }
@@ -42,6 +45,9 @@ public class Movie
         this.genre = genre;
         this.mpaaRating = mpaaRating;
         this.screenwriter = screenwriter;
+
+//        DateTimeFormatter dateFormatter = new Date("dd/MM/yyyy HH:mm:ss");
+        creationDateString = creationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public boolean startsWithTagline(String taglineValue) {
@@ -58,17 +64,17 @@ public class Movie
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", oscarsCount=" + oscarsCount +
-                ", tagline='" + tagline + '\'' +
-                ", genre=" + genre +
-                ", mpaaRating=" + mpaaRating +
-                ", screenwriter=" + screenwriter +
-                '}';
+        return "Movie \"" + name + "\": " +
+                "\n ------------------------- \n" +
+                "ID            : " + id + "\n" +
+                "Coordinates     \n" + coordinates +
+                "Creation date : " + creationDateString + "\n" +
+                "Oscars count  : " + ((oscarsCount == null) ? "" : oscarsCount) + "\n" +
+                "Tagline       : " + ((tagline == null) ? "" : tagline) + "\n" +
+                "Genre         : " + genre + "\n" +
+                "MPAA rating   : " + mpaaRating + "\n" +
+                "Screenwriter    \n" + screenwriter +
+                "\n ------------------------- \n";
     }
 
     public long getId() {

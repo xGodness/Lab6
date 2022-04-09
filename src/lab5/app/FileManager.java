@@ -43,7 +43,7 @@ public class FileManager {
         }
 
         if (!file.canRead() || !file.canWrite()) {
-            throw new FilePermissionException("You don't have permission to read this file");
+            throw new FilePermissionException("You don't have permission to read or write this file");
         }
 
         FileInputStream fileStream = new FileInputStream(file);
@@ -54,7 +54,13 @@ public class FileManager {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (MoviesCollection) unmarshaller.unmarshal(streamReader);
         } catch (JAXBException e) {
-            throw new LoadCollectionException("Cannot load the file. Probably it is empty, has wrong extension or was damaged");
+            application.getIoManager().printlnStatus("Unable to parse file. Opening as empty...");
+            PrintWriter printWriter = new PrintWriter(file);
+            printWriter.println("");
+            printWriter.close();
+            return new MoviesCollection();
+
+//            throw new LoadCollectionException("Cannot load the file. Probably it is empty, has wrong extension or was damaged");
         }
 
     }

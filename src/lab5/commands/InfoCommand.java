@@ -21,7 +21,7 @@ public class InfoCommand extends Command {
     @Override
     public String execute(String[] args) {
         return
-                "Collection type     : " + super.getMoviesCollection().getClass() + "\n" +
+                        "Collection type     : " + super.getMoviesCollection().getCollection().getClass() + "\n" +
                         "Initialization date : " + super.getMoviesCollection().getInitDateTime() + "\n" +
                         "Collection size     : " + super.getMoviesCollection().getCollectionSize();
     }

@@ -57,7 +57,7 @@ public class IOManager {
     }
 
     public String getNextInput(String preMessage) {
-        printOut(preMessage);
+        if (scannerStack.isEmpty()) printOut(preMessage);
         return getNextInput();
     }
 

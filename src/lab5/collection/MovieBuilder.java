@@ -59,14 +59,20 @@ public class MovieBuilder {
          */
         Double x = null;
         Float y = null;
-        while (x == null || y == null) {
-            input = ioManager.getNextInput("Specify X (double) and Y (float) coordinates: ");
+        while (x == null) {
+            input = ioManager.getNextInput("Specify X (double) coordinate: ");
             try {
-                String[] coords = input.split(" ");
-                x = Double.parseDouble(coords[0]);
-                y = Float.parseFloat(coords[1]);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                ioManager.printlnErr("Incorrect input. X coordinate must be double-type value, Y coordinate must be float-type value.");
+                x = Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                ioManager.printlnErr("Incorrect input. X coordinate must be double-type value.");
+            }
+        }
+        while (y == null) {
+            input = ioManager.getNextInput("Specify Y (float) coordinate: ");
+            try {
+                y = Float.parseFloat(input);
+            } catch (NumberFormatException e) {
+                ioManager.printlnErr("Incorrect input. Y coordinate must be float-type value.");
             }
         }
         Coordinates coordinates = new Coordinates(x, y);
@@ -220,24 +226,41 @@ public class MovieBuilder {
          * Screenwriter's location fetch
          */
         Location location = null;
+
+        Integer locX = null;
+        Double locY = null;
+        String locName = null;
+
         while (location == null) {
-            input = ioManager.getNextInput("Specify location's X (integer), Y (double) and name (string) values: ");
-
-            String[] locationValues = input.split(" ");
-            try {
-                int locationX = Integer.parseInt(locationValues[0]);
-                double locationY = Double.parseDouble(locationValues[1]);
-                String locationName = locationValues[2];
-                if (!ioManager.isStringValid(locationName)) {
-                    ioManager.printlnErr("Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
-                } else {
-                    location = new Location(locationX, locationY, locationName);
+            while (locX == null) {
+                input = ioManager.getNextInput("Specify X (integer) coordinate: ");
+                try {
+                    locX = Integer.parseInt(input.trim());
+                } catch (NumberFormatException e) {
+                    ioManager.printlnErr("Incorrect input. X coordinate must be integer-type value.");
                 }
-
-            } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | NullPointerException e) {
-                ioManager.printlnErr("Incorrect input. X and Y must be integer and double, name must contain at least one standard character.");
             }
+
+            while (locY == null) {
+                input = ioManager.getNextInput("Specify Y (double) coordinate: ");
+                try {
+                    locY = Double.parseDouble(input.trim());
+                } catch (NumberFormatException e) {
+                    ioManager.printlnErr("Incorrect input. Y coordinate must be double-type value.");
+                }
+            }
+
+            while (locName == null) {
+                input = ioManager.getNextInput("Specify location name: ");
+                if (!ioManager.isStringValid(input)) {
+                    ioManager.printlnErr("Incorrect input. Name must contain at least one standard character.");
+                    continue;
+                }
+                locName = input;
+            }
+            location = new Location(locX, locY, locName);
         }
+
         Person screenwriter = new Person(personName, birthday, eyeColor, hairColor, nationality, location);
 
         return new Movie(movieName, coordinates, creationDate, oscarsCount, tagline, genre, mpaaRating, screenwriter);

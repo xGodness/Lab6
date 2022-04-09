@@ -5,8 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Coordinates {
-    private Double x; //Поле не может быть null
-    private Float y; //Поле не может быть null
+    private Double x;
+    private Float y;
 
     public Coordinates() {
     }
@@ -34,6 +34,8 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        return "Coordinates{x=" + x + ", y=" + y + "}";
+        return
+                "\tX : " + x + "\n" +
+                "\tY : " + y + "\n";
     }
 }
