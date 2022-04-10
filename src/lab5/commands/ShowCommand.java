@@ -5,18 +5,18 @@ import lab5.exceptions.collection_exceptions.CollectionException;
 import lab5.movie_classes.Movie;
 
 public class ShowCommand extends Command {
-    private String tag = "show";
-    private String description = "SHOW ... shows all collection's elements";
+    public static final String tag = "show";
+    public static final String description = "SHOW ... shows all collection's elements";
 
     public ShowCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
@@ -30,7 +30,7 @@ public class ShowCommand extends Command {
         for (Movie movie : moviesCollection.getCollection()) {
             result.append(movie.toString()).append("\n");
         }
-        return result.toString();
+        return result.toString().trim();
     }
 
 

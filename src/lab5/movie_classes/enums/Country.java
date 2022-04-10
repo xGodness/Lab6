@@ -1,11 +1,11 @@
 package lab5.movie_classes.enums;
 
 public enum Country {
-    UNITED_KINGDOM("uk"),
-    USA("usa"),
-    VATICAN("vatican"),
-    SOUTH_KOREA("south korea"),
-    NORTH_KOREA("north korea");
+    UNITED_KINGDOM("UK"),
+    USA("USA"),
+    VATICAN("Vatican"),
+    SOUTH_KOREA("South Korea"),
+    NORTH_KOREA("North Korea");
 
     private String label;
 
@@ -15,7 +15,7 @@ public enum Country {
 
     public static Country valueOfLabel(String label) {
         for (Country e : values()) {
-            if (e.label.equals(label)) {
+            if (e.label.equalsIgnoreCase(label)) {
                 return e;
             }
         }

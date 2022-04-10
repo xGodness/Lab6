@@ -1,9 +1,9 @@
 package lab5.movie_classes.enums;
 
 public enum HairColor {
-    BLUE("blue"),
-    YELLOW("yellow"),
-    WHITE("white");
+    BLUE("Blue"),
+    YELLOW("Yellow"),
+    WHITE("White");
 
     private String label;
 
@@ -13,7 +13,7 @@ public enum HairColor {
 
     public static HairColor valueOfLabel(String label) {
         for (HairColor e : values()) {
-            if (e.label.equals(label)) {
+            if (e.label.equalsIgnoreCase(label)) {
                 return e;
             }
         }

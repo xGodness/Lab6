@@ -4,19 +4,18 @@ import lab5.collection.MoviesCollection;
 import lab5.exceptions.collection_exceptions.IdException;
 
 public class UpdateCommand extends Command {
-    private String tag = "update";
-    private String description =
-            "UPDATE [id] {element} ... updates element with given id";
+    public static final String tag = "update";
+    public static final String description = "UPDATE [id] {element} ... updates element with given id";
 
     public UpdateCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

@@ -5,18 +5,18 @@ import lab5.exceptions.collection_exceptions.EmptyCollectionException;
 import lab5.movie_classes.Movie;
 
 public class RemoveHeadCommand extends Command {
-    private String tag = "remove_head";
-    private String description = "REMOVE_HEAD ... shows first element in the collection and removes it";
+    public static final String tag = "remove_head";
+    public static final String description = "REMOVE_HEAD ... shows first element in the collection and removes it";
 
     public RemoveHeadCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

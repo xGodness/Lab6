@@ -59,8 +59,6 @@ public class FileManager {
             printWriter.println("");
             printWriter.close();
             return new MoviesCollection();
-
-//            throw new LoadCollectionException("Cannot load the file. Probably it is empty, has wrong extension or was damaged");
         }
 
     }
@@ -120,7 +118,6 @@ public class FileManager {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(collection, printWriter);
         } catch (JAXBException e) {
-//            System.out.println(e.getMessage());
             e.printStackTrace();
             throw new SaveCollectionException("Cannot save collection to the file. Probably file was damaged or doesn't exist");
         }

@@ -4,19 +4,19 @@ import lab5.collection.MoviesCollection;
 import lab5.exceptions.collection_exceptions.IdException;
 
 public class RemoveByIdCommand extends Command {
-    private String tag = "remove_by_id";
-    private String description =
+    public static final String tag = "remove_by_id";
+    public static final String description =
             "REMOVE_BY_ID [id] ... removes element with given id";
 
     public RemoveByIdCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

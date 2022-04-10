@@ -17,8 +17,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 /**
- * Class-connector
- * responsible for whole system processes coordinating
+ * Class-connector. Operates all others classes presented in code.
  */
 
 
@@ -46,11 +45,16 @@ public class Application {
                                                Load or save collection
     ________________________________________________________________________________________________________________*/
 
+    /**
+     * Loads collection from the file.
+     * Will be running until collection is loaded.
+     *
+     * @param fileName  Name of the file to load from
+     */
     public void loadCollection(String fileName) {
         currentFileName = fileName;
         boolean collectionWasLoaded = false;
         while (!collectionWasLoaded) {
-//            ioManager.printlnStatus("Loading from \"" + currentFileName + "\"...");
             try {
                 MoviesCollection rawMoviesCollection = fileManager.load(currentFileName);
                 LinkedList<Movie> rawCollection = rawMoviesCollection.getCollection();
@@ -67,6 +71,9 @@ public class Application {
                             wrongMovies.add(rawCollection.get(j));
                         }
                     }
+                }
+                if (wrongMovies.size() != 0) {
+                    ioManager.printlnStatus("Corrupted elements were found. Fixing the file...");
                 }
                 rawCollection.removeAll(wrongMovies);
                 moviesCollection = rawMoviesCollection;
@@ -91,13 +98,16 @@ public class Application {
         }
     }
 
+    /**
+     * Saves collection to the file application is currently working with.
+     * File name should already been presented in Application class (field "currentFileName").
+     */
     public void saveCollection() {
         boolean collectionWasSaved = false;
         while (!collectionWasSaved) {
             ioManager.printlnStatus("Saving to \"" + currentFileName + "\"...");
             try {
                 fileManager.save(moviesCollection, currentFileName);
-//                ioManager.printlnSuccess("Collection has been saved to \"" + currentFileName + "\"");
                 collectionWasSaved = true;
             } catch (InvalidFileNameException | FilePermissionException | SaveCollectionException e) {
                 ioManager.printlnErr(e.getMessage());
@@ -113,6 +123,12 @@ public class Application {
                                                 Auxiliary methods
     ________________________________________________________________________________________________________________*/
 
+    /**
+     * Creates blank file in case file with specified name does not exist.
+     *
+     * @param fileName  Name of the file to create
+     * @return  "true" if file was created and "false" otherwise
+     */
     private boolean createBlankFile(String fileName) {
         String response = null;
         while (response == null
@@ -151,7 +167,10 @@ public class Application {
                                                      Initializers
     ________________________________________________________________________________________________________________*/
 
-    public void consoleStart(String fileName) {
+    /**
+     * Launches Console Manager for further work.
+     */
+    public void consoleStart() {
         if (moviesCollection == null) {
             ioManager.printlnErr("Collection not presented");
             return;
@@ -167,14 +186,23 @@ public class Application {
                                                         Getters
     ________________________________________________________________________________________________________________*/
 
+    /**
+     * @return  Application's IOManager
+     */
     public IOManager getIoManager() {
         return ioManager;
     }
 
+    /**
+     * @return  Application's MoviesCollection
+     */
     public MoviesCollection getMoviesCollection() {
         return moviesCollection;
     }
 
+    /**
+     * @return  Application's FileManager
+     */
     public FileManager getFileManager() {
         return fileManager;
     }
@@ -184,6 +212,14 @@ public class Application {
                                                    Execute command
     ________________________________________________________________________________________________________________*/
 
+    /**
+     * Sets command to invoker and makes it to execute.
+     *
+     * @param command               Command to execute
+     * @param args                  Command arguments (necessary, can be null)
+     * @return                      Execution result
+     * @throws CollectionException  Exception thrown during executing the command
+     */
     public String executeCommand(Command command, String[] args) throws CollectionException {
         invoker.setCommand(command, args);
         return invoker.executeCommand();

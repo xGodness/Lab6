@@ -1,11 +1,11 @@
 package lab5.movie_classes.enums;
 
 public enum MovieGenre {
-    ACTION("action"),
-    WESTERN("western"),
-    DRAMA("drama"),
-    MUSICAL("musical"),
-    SCIENCE_FICTION("sci-fi");
+    ACTION("Action"),
+    WESTERN("Western"),
+    DRAMA("Drama"),
+    MUSICAL("Musical"),
+    SCIENCE_FICTION("Sci-Fi");
 
     private final String label;
 
@@ -15,7 +15,7 @@ public enum MovieGenre {
 
     public static MovieGenre valueOfLabel(String label) {
         for (MovieGenre e : values()) {
-            if (e.label.equals(label)) {
+            if (e.label.equalsIgnoreCase(label)) {
                 return e;
             }
         }

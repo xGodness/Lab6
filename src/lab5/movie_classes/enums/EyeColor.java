@@ -1,10 +1,10 @@
 package lab5.movie_classes.enums;
 
 public enum EyeColor {
-    GREEN("green"),
-    RED("red"),
-    WHITE("white"),
-    BROWN("brown");
+    GREEN("Green"),
+    RED("Red"),
+    WHITE("White"),
+    BROWN("Brown");
 
     private String label;
 
@@ -14,7 +14,7 @@ public enum EyeColor {
 
     public static EyeColor valueOfLabel(String label) {
         for (EyeColor e : values()) {
-            if (e.label.equals(label)) {
+            if (e.label.equalsIgnoreCase(label)) {
                 return e;
             }
         }

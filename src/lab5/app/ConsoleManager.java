@@ -2,9 +2,10 @@ package lab5.app;
 
 import lab5.IO.IOManager;
 import lab5.commands.*;
-import lab5.commands.constructors_interfaces.*;
 import lab5.exceptions.collection_exceptions.CollectionException;
 import lab5.exceptions.collection_exceptions.RecursionException;
+import lab5.exceptions.factory_exceptions.CannotAccessCommandException;
+import lab5.exceptions.factory_exceptions.CommandNotFoundException;
 import lab5.exceptions.file_exceptions.FileException;
 
 import java.io.File;
@@ -21,137 +22,129 @@ public class ConsoleManager {
     private Application application;
     private IOManager ioManager;
 
-    private HashMap<String, AbstractNewCommand> commandsHashMap;
-    private HashMap<String, String> descriptionsHashMap;
+
+//    private HashMap<String, AbstractNewCommand> commandsHashMap;
+    private final static LinkedHashMap<String, String> descriptionsMap;
 
 
     private String fileName;
 
-//    static {
-//        CommandsFactory.registerCommand("add", AddCommand.class);
-//        CommandsFactory.registerCommand("clear", ClearCommand.class);
-//    }
+    static {
+        /* Registering all available commands */
+        try {
+            CommandsFactory.registerCommand("add", AddCommand.class);
+            CommandsFactory.registerCommand("clear", ClearCommand.class);
+            CommandsFactory.registerCommand("add", AddCommand.class);
+            CommandsFactory.registerCommand("add_if_max", AddIfMaxCommand.class);
+            CommandsFactory.registerCommand("clear", ClearCommand.class);
+            CommandsFactory.registerCommand("count_less_than_oscars_count", CountLessThanOscarsCountCommand.class);
+            CommandsFactory.registerCommand("filter_starts_with_tagline", FilterStartsWithTaglineCommand.class);
+            CommandsFactory.registerCommand("info", InfoCommand.class);
+            CommandsFactory.registerCommand("max_by_screenwriter", MaxByScreenwriterCommand.class);
+            CommandsFactory.registerCommand("remove_by_id", RemoveByIdCommand.class);
+            CommandsFactory.registerCommand("remove_head", RemoveHeadCommand.class);
+            CommandsFactory.registerCommand("remove_lower", RemoveLowerCommand.class);
+            CommandsFactory.registerCommand("save", SaveCommand.class);
+            CommandsFactory.registerCommand("show", ShowCommand.class);
+            CommandsFactory.registerCommand("update", UpdateCommand.class);
+        } catch (CommandNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        /* Collecting all available commands' descriptions */
+        HashMap<String, String> unsortedDescriptionsMap = new HashMap<>();
+        unsortedDescriptionsMap.put("help", "HELP ... provides help");
+        unsortedDescriptionsMap.put("exit", "EXIT ... closes program without saving");
+        for (String tag : CommandsFactory.getAllRegisteredTags()) {
+            try {
+                unsortedDescriptionsMap.put(tag, CommandsFactory.getDescription(tag));
+            } catch (CommandNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        descriptionsMap = HashMapSorter.sortHashMap(unsortedDescriptionsMap);
+
+    }
 
     public ConsoleManager(Application application) {
         this.application = application;
         this.ioManager = application.getIoManager();
-
-        commandsHashMap = new HashMap<>();
-        descriptionsHashMap = new HashMap<>();
-
-        NewAddCmd newAddCmd = AddCommand::new;
-        NewAddIfMaxCmd newAddIfMaxCmd = AddIfMaxCommand::new;
-        NewClearCmd newClearCmd = ClearCommand::new;
-        NewCountLessThanOscarsCountCmd newCountLessThanOscarsCountCmd = CountLessThanOscarsCountCommand::new;
-        NewFilterStartsWithTaglineCmd newFilterStartsWithTaglineCmd = FilterStartsWithTaglineCommand::new;
-        NewInfoCmd newInfoCmd = InfoCommand::new;
-        NewMaxByScreenwriterCmd newMaxByScreenwriterCmd = MaxByScreenwriterCommand::new;
-        NewRemoveByIdCmd newRemoveByIdCmd = RemoveByIdCommand::new;
-        NewRemoveHeadCmd newRemoveHeadCmd = RemoveHeadCommand::new;
-        NewRemoveLowerCmd newRemoveLowerCmd = RemoveLowerCommand::new;
-        NewSaveCmd newSaveCmd = SaveCommand::new;
-        NewShowCmd newShowCmd = ShowCommand::new;
-        NewUpdateCmd newUpdateCmd = UpdateCommand::new;
-
-        commandsHashMap.put("add", newAddCmd);
-        commandsHashMap.put("add_if_max", newAddIfMaxCmd);
-        commandsHashMap.put("clear", newClearCmd);
-        commandsHashMap.put("count_less_than_oscars_count", newCountLessThanOscarsCountCmd);
-        commandsHashMap.put("filter_starts_with_tagline", newFilterStartsWithTaglineCmd);
-        commandsHashMap.put("info", newInfoCmd);
-        commandsHashMap.put("max_by_screenwriter", newMaxByScreenwriterCmd);
-        commandsHashMap.put("remove_by_id", newRemoveByIdCmd);
-        commandsHashMap.put("remove_head", newRemoveHeadCmd);
-        commandsHashMap.put("remove_lower", newRemoveLowerCmd);
-        commandsHashMap.put("save", newSaveCmd);
-        commandsHashMap.put("show", newShowCmd);
-        commandsHashMap.put("update", newUpdateCmd);
-
-        descriptionsHashMap.put("help", "HELP ... provides help");
-        descriptionsHashMap.put("exit", "EXIT ... closes program without saving");
-        Command tmpCmd;
-        for (AbstractNewCommand newCmdFunc : commandsHashMap.values()) {
-            tmpCmd = newCmdFunc.create(application.getMoviesCollection());
-            descriptionsHashMap.put(tmpCmd.getTag(), tmpCmd.getDescription());
-        }
-        tmpCmd = null;
-        System.gc();
     }
 
 
     public void execute() {
         String input;
-        String[] parsedInput;
+        LinkedList<String> parsedInput = new LinkedList<>();
+        String commandTag;
+        String[] commandArgs;
 
 
         while (true) {
             input = ioManager.getNextInput("Type command (type \"help\" for help): ").toLowerCase(Locale.ROOT);
-            parsedInput = input.split("\\s+");
+            parsedInput.clear();
+            commandArgs = new String[] {};
+            for (String word : input.split("\\s+")) {
+                parsedInput.add(word.trim());
+            }
 
-            if (parsedInput.length == 0) {
+            if (parsedInput.size() == 0) {
                 continue;
             }
 
+            commandTag = parsedInput.get(0);
 
-            if (parsedInput[0].equals("help")) {
-                for (String cmdDescription : descriptionsHashMap.values()) {
-                    ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
-                }
-                continue;
-            }
+            switch (commandTag) {
 
-            if (parsedInput[0].equals("exit")) {
-                ioManager.printlnStatus("Terminating program...");
-                return;
-            }
-
-            if (parsedInput[0].equals("execute_script")) {
-                ioManager.printlnStatus("Executing script...");
-                if (parsedInput.length == 1) {
-                    ioManager.printlnErr("Script file name wasn't specified");
-                    continue;
-                }
-                HashSet<String> stack = new HashSet();
-                stack.add(parsedInput[1]);
-                try {
-                    boolean code = executeScript(parsedInput[1], new HashSet<>());
-                    if (!code) {
-                        ioManager.printlnStatus("Terminating program...");
-                        ioManager.clearScannerStack();
-                        return;
+                case ("help"):
+                    for (String cmdDescription : descriptionsMap.values()) {
+                        ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
                     }
-                    ioManager.clearScannerStack();
-                    continue;
-                } catch (FileException | RecursionException | IOException e) {
-                    ioManager.clearScannerStack();
-                    ioManager.printlnErr(e.getMessage());
-                    continue;
-                }
+                    break;
+
+                case ("exit"):
+                    ioManager.printlnStatus("Terminating program...");
+                    return;
+
+                case ("execute_script"):
+                    if (parsedInput.size() == 1) {
+                        ioManager.printlnErr("Cannot execute script because file name wasn't specified");
+                        continue;
+                    }
+                    ioManager.printlnStatus("Executing script...");
+                    HashSet scriptsCallStack = new HashSet();
+                    scriptsCallStack.add(parsedInput.get(1));
+                    try {
+                        boolean recursionExitCode = executeScript(parsedInput.get(1), new HashSet<>());
+                        if (!recursionExitCode) {
+                            ioManager.printlnStatus("Terminating program...");
+                            ioManager.clearScannerStack();
+                            return;
+                        }
+                        ioManager.clearScannerStack();
+                        break;
+                    } catch (FileException | RecursionException | IOException e) {
+                        ioManager.clearScannerStack();
+                        ioManager.printlnErr(e.getMessage());
+                        break;
+                    }
+
+                default:
+                    try {
+                        Command command = CommandsFactory.getCommand(commandTag, application.getMoviesCollection());
+                        for (int i = 1; i < parsedInput.size(); i++) {
+                            commandArgs[i - 1] = parsedInput.get(i);
+                        }
+                        ioManager.printlnSuccess(
+                                application.executeCommand(command, commandArgs)
+                        );
+                    } catch (CommandNotFoundException | CannotAccessCommandException | CollectionException e) {
+                        ioManager.printlnErr(e.getMessage());
+                    }
+                    break;
             }
-
-            if (commandsHashMap.containsKey(parsedInput[0])) {
-//                Class<? extends Command> commandClass = CommandsFactory.getCommand(parsedInput[0]);
-//                Command command = commandClass.newInstance(application.getMoviesCollection());
-                Command command = commandsHashMap.get(parsedInput[0]).create(application.getMoviesCollection());
-//                ioManager.printlnInfo(Arrays.toString(parsedInput));
-
-                String[] cmdArgs = null;
-                if (parsedInput.length > 1) {
-                    cmdArgs = Arrays.copyOfRange(parsedInput, 1, parsedInput.length);
-                }
-
-
-                try {
-                    ioManager.printlnSuccess(
-                            application.executeCommand(command, cmdArgs)
-                    );
-                } catch (CollectionException e) {
-                    ioManager.printlnErr(e.getMessage());
-                }
-            }
-
         }
     }
+
 
     public boolean executeScript(String fileName, HashSet<String> stackTrace) throws FileException, IOException, RecursionException {
         if (stackTrace.contains(fileName)) {
@@ -163,55 +156,66 @@ public class ConsoleManager {
         ioManager.pushScanner(fileScanner);
         String input;
         String[] parsedInput;
+
         while (fileScanner.hasNextLine()) {
+
             input = fileScanner.nextLine();
-            System.out.println(input);
+            ioManager.printlnStatus(">>> " + input);
             parsedInput = input.split("\\s+");
+
             if (parsedInput.length == 0) {
                 continue;
             }
-            if (parsedInput[0].equals("help")) {
-                for (String cmdDescription : descriptionsHashMap.values()) {
-                    ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
-                }
-                continue;
-            }
-            if (parsedInput[0].equals("exit")) {
-                ioManager.printlnStatus("Terminating program...");
-                return false;
-            }
 
-            if (parsedInput[0].equals("execute_script")) {
-                if (parsedInput.length == 1) {
-                    ioManager.printlnErr("Script file name wasn't specified");
-                    continue;
-                }
-                boolean statusCode = executeScript(parsedInput[1], stackTrace);
-                if (!statusCode) {
+            String commandTag = parsedInput[0].trim();
+
+            switch (commandTag) {
+
+                case ("help"):
+                    for (String cmdDescription : descriptionsMap.values()) {
+                        ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
+                    }
+                    break;
+
+                case ("exit"):
                     return false;
-                }
-                continue;
-            }
 
-            if (commandsHashMap.containsKey(parsedInput[0])) {
-                Command command = commandsHashMap.get(parsedInput[0]).create(application.getMoviesCollection());
-                String[] cmdArgs = null;
-                if (parsedInput.length > 1) {
-                    cmdArgs = Arrays.copyOfRange(parsedInput, 1, parsedInput.length);
-                }
-                try {
-                    ioManager.printlnSuccess(
-                            application.executeCommand(command, cmdArgs)
-                    );
-                } catch (CollectionException e) {
-                    ioManager.printlnErr(e.getMessage());
-                }
+                case ("execute_script"):
+                    if (parsedInput.length == 1) {
+                        ioManager.printlnErr("Script file name wasn't specified");
+                        continue;
+                    }
+                    ioManager.printlnStatus("Executing script...");
+                    boolean statusCode = executeScript(parsedInput[1], stackTrace);
+                    if (!statusCode) {
+                        return false;
+                    }
+                    break;
+
+                default:
+                    try {
+                        Command command = CommandsFactory.getCommand(commandTag, application.getMoviesCollection());
+                        String[] commandArgs = Arrays.copyOfRange(parsedInput, 1, parsedInput.length);
+                        for (int i = 0; i < commandArgs.length; i++) {
+                            commandArgs[i] = commandArgs[i].trim();
+                        }
+                        ioManager.printlnSuccess(
+                                application.executeCommand(command, commandArgs)
+                        );
+                    } catch (CommandNotFoundException | CannotAccessCommandException | CollectionException e) {
+                        ioManager.printlnErr(e.getMessage());
+                    }
+                    break;
             }
 
         }
         ioManager.popScanner();
         return true;
     }
+
+
+
+
 
 
 }

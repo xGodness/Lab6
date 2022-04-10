@@ -80,8 +80,8 @@ public class IOManager {
 
     public void printlnInfoFormat(String[] message) {
         if (message.length == 2) {
-            System.out.format("%-80s", ANSI_YELLOW + message[0] + ANSI_RESET);
-            System.out.format("%100s", ANSI_YELLOW + message[1] + ANSI_RESET + "\n");
+            System.out.format("%-54s", ANSI_YELLOW + message[0] + ANSI_RESET);
+            System.out.format("%s", ANSI_YELLOW + message[1] + ANSI_RESET + "\n");
         }
     }
 

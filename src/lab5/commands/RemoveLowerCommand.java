@@ -4,18 +4,18 @@ import lab5.collection.MoviesCollection;
 import lab5.exceptions.collection_exceptions.CollectionException;
 
 public class RemoveLowerCommand extends Command {
-    private String tag = "remove_lower";
-    private String description = "REMOVE_LOWER {element} ... removes all collection's elements that are smaller than given element";
+    public static final String tag = "remove_lower";
+    public static final String description = "REMOVE_LOWER {element} ... removes all collection's elements that are smaller than given element";
 
     public RemoveLowerCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

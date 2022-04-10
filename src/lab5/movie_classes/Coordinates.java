@@ -35,7 +35,7 @@ public class Coordinates {
     @Override
     public String toString() {
         return
-                "\tX : " + x + "\n" +
-                "\tY : " + y + "\n";
+                "| \tX           : " + x + "\n" +
+                "| \tY           : " + y + "\n";
     }
 }

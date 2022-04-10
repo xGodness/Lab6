@@ -1,9 +1,9 @@
 package lab5.movie_classes.enums;
 
 public enum MpaaRating {
-    PG("pg"),
-    PG_13("pg_13"),
-    R("r");
+    PG("PG"),
+    PG_13("PG-13"),
+    R("R");
 
     private final String label;
 
@@ -13,7 +13,7 @@ public enum MpaaRating {
 
     public static MpaaRating valueOfLabel(String label) {
         for (MpaaRating e : values()) {
-            if (e.label.equals(label)) {
+            if (e.label.equalsIgnoreCase(label)) {
                 return e;
             }
         }

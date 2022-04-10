@@ -7,18 +7,18 @@ import lab5.movie_classes.Movie;
 import java.util.LinkedList;
 
 public class FilterStartsWithTaglineCommand extends Command {
-    private String tag = "filter_starts_with_tagline";
-    private String description = "FILTER_STARTS_WITH_TAGLINE [tagline] ... shows element whose tagline field starts with given substring";
+    public static final String tag = "filter_starts_with_tagline";
+    public static final String description = "FILTER_STARTS_WITH_TAGLINE [tagline] ... shows element whose tagline field starts with given substring";
 
     public FilterStartsWithTaglineCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

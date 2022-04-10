@@ -3,18 +3,18 @@ package lab5.commands;
 import lab5.collection.MoviesCollection;
 
 public class InfoCommand extends Command {
-    private String tag = "info";
-    private String description = "INFO ... provides information about collection";
+    public static final String tag = "info";
+    public static final String description = "INFO ... provides information about collection";
 
     public InfoCommand(MoviesCollection collection) {
         super(collection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

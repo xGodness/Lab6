@@ -45,8 +45,8 @@ public class Location {
 
     @Override
     public String toString() {
-        return  "\t\tName : " + name + "\n" +
-                "\t\tX    : " + x + "\n" +
-                "\t\tY    : " + y;
+        return  "| \t\tName    : " + name + "\n" +
+                "| \t\tX       : " + x + "\n" +
+                "| \t\tY       : " + y;
     }
 }

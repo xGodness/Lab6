@@ -89,11 +89,11 @@ public class Person
 
     @Override
     public String toString() {
-        return  "\tName        : " + name + "\n" +
-                "\tBirthday    : " + ((birthday == null) ? "" : birthday) + "\n" +
-                "\tEye color   : " + eyeColor + "\n" +
-                "\tHair color  : " + hairColor + "\n" +
-                "\tNationality : " + nationality + "\n" +
-                "\tLocation      \n" + location;
+        return  "| \tName        : " + name + "\n" +
+                "| \tBirthday    : " + ((birthday == null) ? "" : birthday) + "\n" +
+                "| \tEye color   : " + eyeColor + "\n" +
+                "| \tHair color  : " + hairColor + "\n" +
+                "| \tNationality : " + nationality + "\n" +
+                "| \tLocation      \n" + location;
     }
 }

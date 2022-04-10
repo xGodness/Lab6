@@ -64,17 +64,18 @@ public class Movie
 
     @Override
     public String toString() {
-        return "Movie \"" + name + "\": " +
-                "\n ------------------------- \n" +
-                "ID            : " + id + "\n" +
-                "Coordinates     \n" + coordinates +
-                "Creation date : " + creationDateString + "\n" +
-                "Oscars count  : " + ((oscarsCount == null) ? "" : oscarsCount) + "\n" +
-                "Tagline       : " + ((tagline == null) ? "" : tagline) + "\n" +
-                "Genre         : " + genre + "\n" +
-                "MPAA rating   : " + mpaaRating + "\n" +
-                "Screenwriter    \n" + screenwriter +
-                "\n ------------------------- \n";
+        return "____________________________________________\n" +
+                "| Movie \"" + name + "\":\n" +
+                "|___________________________________________\n" +
+                "| ID            : " + id + "\n" +
+                "| Coordinates     \n" + coordinates +
+                "| Creation date : " + creationDateString + "\n" +
+                "| Oscars count  : " + ((oscarsCount == null) ? "" : oscarsCount) + "\n" +
+                "| Tagline       : " + ((tagline == null) ? "" : tagline) + "\n" +
+                "| Genre         : " + genre + "\n" +
+                "| MPAA rating   : " + mpaaRating + "\n" +
+                "| Screenwriter    \n" + screenwriter + "\n" +
+                "|___________________________________________\n";
     }
 
     public long getId() {

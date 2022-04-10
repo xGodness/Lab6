@@ -3,18 +3,18 @@ package lab5.commands;
 import lab5.collection.MoviesCollection;
 
 public class CountLessThanOscarsCountCommand extends Command {
-    private String tag = "count_less_than_oscars_count";
-    private String description = "COUNT_LESS_THAN_OSCARS_COUNT [oscarsCount] ... returns amount of elements whose oscarsCount's value is smaller than given";
+    public static final String tag = "count_less_than_oscars_count";
+    public static final String description = "COUNT_LESS_THAN_OSCARS_COUNT [oscarsCount] ... returns amount of elements whose oscarsCount's value is smaller than given";
 
     public CountLessThanOscarsCountCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

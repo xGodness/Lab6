@@ -124,11 +124,11 @@ public class MovieBuilder {
          */
         MovieGenre genre = null;
         while (genre == null) {
-            input = ioManager.getNextInput("Specify movie genre (Action, Western, Drama, Musical or Sci-fi): ").toLowerCase(Locale.ROOT);
+            input = ioManager.getNextInput("Specify movie genre (Action, Western, Drama, Musical or Sci-Fi): ").toLowerCase(Locale.ROOT);
             try {
                 genre = MovieGenre.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnErr("Incorrect input. Movie genre must be Action, Western, Drama, Musical or Sci-fi.");
+                ioManager.printlnErr("Incorrect input. Movie genre must be Action, Western, Drama, Musical or Sci-Fi.");
             }
         }
 
@@ -137,11 +137,11 @@ public class MovieBuilder {
          */
         MpaaRating mpaaRating = null;
         while (mpaaRating == null) {
-            input = ioManager.getNextInput("Specify MPAA rating (PG, PG_13, R): ").toLowerCase(Locale.ROOT);
+            input = ioManager.getNextInput("Specify MPAA rating (PG, PG-13, R): ").toLowerCase(Locale.ROOT);
             try {
                 mpaaRating = MpaaRating.valueOfLabel(input);
             } catch (IllegalArgumentException e) {
-                ioManager.printlnErr("Incorrect input. MPAA rating must be PG, PG_13 or R.");
+                ioManager.printlnErr("Incorrect input. MPAA rating must be PG, PG-13 or R.");
             }
         }
 

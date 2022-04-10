@@ -7,18 +7,20 @@ import lab5.collection.MoviesCollection;
  */
 
 public abstract class Command implements CommandImpl {
-    public String description = "";
+    public static final String description = "";
+    public static final String tag = "";
+
     private MoviesCollection moviesCollection;
 
     public Command(MoviesCollection moviesCollection) {
         this.moviesCollection = moviesCollection;
     }
 
-    public String getTag() {
-        return "";
+    public static String getTag() {
+        return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 

@@ -43,7 +43,7 @@ public class MoviesCollection {
                                                     Constructor
     ________________________________________________________________________________________________________________*/
     public MoviesCollection() {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         initDateTime = dateFormatter.format(new Date());
     }
 
@@ -125,7 +125,7 @@ public class MoviesCollection {
         }
         return Collections.max(
                 collection,
-                (m1, m2) -> (m1.getScreenwriter().compareTo(m2.getScreenwriter()))
+                Comparator.comparing(Movie::getScreenwriter)
         );
     }
 
@@ -182,7 +182,7 @@ public class MoviesCollection {
                                                 ID methods
     ________________________________________________________________________________________________________________*/
 
-    public boolean checkId(Long id) { //TODO check ids after loading
+    public boolean checkId(Long id) {
         if (id == null || id < 1) {
             return false;
         }
@@ -207,9 +207,9 @@ public class MoviesCollection {
                                                     Sorting
     ________________________________________________________________________________________________________________*/
 
-    public void updateSortedCollection() { //TODO update after each change
+    public void updateSortedCollection() { //TODO update after every change
         sortedCollection = (LinkedList<Movie>) collection.clone();
-        sortedCollection.sort((m1, m2) -> m1.compareTo(m2));
+        sortedCollection.sort(Movie::compareTo);
     }
 
     /*________________________________________________________________________________________________________________
@@ -233,13 +233,6 @@ public class MoviesCollection {
 
     public HashSet<Long> getUsedIds() {
         return usedIds;
-    }
-
-    class Comp implements Comparator<Movie> {
-        @Override
-        public int compare(Movie var1, Movie var2) {
-            return var1.getOscarsCount() - var2.getOscarsCount();
-        }
     }
 
 }

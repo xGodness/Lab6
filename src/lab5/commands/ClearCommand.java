@@ -3,18 +3,18 @@ package lab5.commands;
 import lab5.collection.MoviesCollection;
 
 public class ClearCommand extends Command {
-    private String tag = "clear";
-    private String description = "CLEAR ... clears the collection";
+    public static final String tag = "clear";
+    public static final String description = "CLEAR ... clears the collection";
 
     public ClearCommand(MoviesCollection moviesCollection) {
         super(moviesCollection);
     }
 
-    public String getTag() {
+    public static String getTag() {
         return tag;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
