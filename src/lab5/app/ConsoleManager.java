@@ -13,17 +13,18 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Parses commands and throws them to the invoker
+ * Connects IO with application.
+ * Also generates new commands by user's input.
+ * Static block loads all available commands to the class loader
+ * and saves their descriptions to the sorted linked hash map.
  */
-
-
 public class ConsoleManager {
 
     private Application application;
     private IOManager ioManager;
 
 
-//    private HashMap<String, AbstractNewCommand> commandsHashMap;
+    /* Contains all commands' description */
     private final static LinkedHashMap<String, String> descriptionsMap;
 
 
@@ -66,12 +67,19 @@ public class ConsoleManager {
 
     }
 
+    /**
+     * The only constructor. Needs Application as argument because link to the connected application is necessary.
+     *
+     * @param application   Connected Application instance
+     */
     public ConsoleManager(Application application) {
         this.application = application;
         this.ioManager = application.getIoManager();
     }
 
-
+    /**
+     * Method that begins Console Manager main loop.
+     */
     public void execute() {
         String input;
         LinkedList<String> parsedInput = new LinkedList<>();
@@ -145,7 +153,16 @@ public class ConsoleManager {
         }
     }
 
-
+    /**
+     * Method that executes scripts from files.
+     *
+     * @param fileName              Name of the file contains script to execute
+     * @param stackTrace            Stack of file names that already have been called
+     * @return                      "true" if program must terminate after executing script (if there was "exit" command in the script)
+     * @throws FileException        Exception thrown if program could not access specified script file
+     * @throws IOException          Exception thrown if IO manager had caught incorrect input
+     * @throws RecursionException   Exception thrown if recursion had been found
+     */
     public boolean executeScript(String fileName, HashSet<String> stackTrace) throws FileException, IOException, RecursionException {
         if (stackTrace.contains(fileName)) {
             throw new RecursionException("Recursion has been found");

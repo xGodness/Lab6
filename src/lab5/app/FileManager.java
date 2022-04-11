@@ -15,18 +15,32 @@ import javax.xml.bind.Unmarshaller;
 import java.io.*;
 
 /**
- * Manages work with files
+ * Manager that reads and saves data in the files.
  */
 
 
 public class FileManager {
     private Application application;
 
+    /**
+     * The only constructor. Needs Application as argument because link to the connected application is necessary.
+     *
+     * @param application   Connected Application instance
+     */
     public FileManager(Application application) {
         this.application = application;
     }
 
-
+    /**
+     * Method that loads collection from the XML-file.
+     *
+     * @param  fileName                     Name of the file to read collection from
+     * @return                              Collection instance that created from the file
+     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
+     * @throws FilePermissionException      Exception thrown if file is not accessible
+     * @throws FileNotFoundException        Exception thrown if file was not found
+     * @throws LoadCollectionException      Exception thrown if program could not parse the file and load collection from it
+     */
     public MoviesCollection load(String fileName)
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException, LoadCollectionException {
 
@@ -63,7 +77,15 @@ public class FileManager {
 
     }
 
-
+    /**
+     * Method that creates new file.
+     *
+     * @param  fileName                     Name of the file to create
+     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
+     * @throws FilePermissionException      Exception thrown if file is not accessible
+     * @throws FileNotFoundException        Exception thrown if file was not found
+     * @throws LoadCollectionException      Exception thrown if program could not parse the file and load collection from it
+     */
     public void create(String fileName)
             throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, IOException, CannotCreateFileException {
 

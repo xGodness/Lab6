@@ -1,6 +1,5 @@
 package lab5.IO;
 
-import java.beans.Transient;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
