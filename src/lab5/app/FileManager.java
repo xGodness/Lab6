@@ -82,9 +82,10 @@ public class FileManager {
      *
      * @param  fileName                     Name of the file to create
      * @throws InvalidFileNameException     Exception thrown if invalid file name was given
+     * @throws FileAlreadyExistsException   Exception thrown if file with given name already exists
      * @throws FilePermissionException      Exception thrown if file is not accessible
-     * @throws FileNotFoundException        Exception thrown if file was not found
-     * @throws LoadCollectionException      Exception thrown if program could not parse the file and load collection from it
+     * @throws IOException                  Exception thrown if IO manager had caught incorrect input
+     * @throws CannotCreateFileException    Exception thrown if File Manager could not create file due to unexpected error
      */
     public void create(String fileName)
             throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, IOException, CannotCreateFileException {
@@ -112,7 +113,17 @@ public class FileManager {
 
     }
 
-
+    /**
+     * Method that saves collection to the XML-file.
+     *
+     * @param collection                    Collection instance to save
+     * @param fileName                      Name of the file to save to
+     * @return                              "true" if collection has been saved successfully
+     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
+     * @throws FilePermissionException      Exception thrown if file is not accessible
+     * @throws FileNotFoundException        Exception thrown if file with given name does not exist
+     * @throws SaveCollectionException      Exception thrown if JAXB could not save collection to the file due to unexpected error
+     */
     public boolean save(MoviesCollection collection, String fileName)
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException, SaveCollectionException {
 
@@ -149,7 +160,15 @@ public class FileManager {
 
     }
 
-
+    /**
+     * Method that opens file as a Java-object.
+     *
+     * @param fileName                      Name of the file to open
+     * @return                              Java File instance
+     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
+     * @throws FilePermissionException      Exception thrown if file is not accessible
+     * @throws FileNotFoundException        Exception thrown if file with given name does not exist
+     */
     public File openFile(String fileName) throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
         if (!application.isStringValid(fileName)) {
             throw new InvalidFileNameException("File name is invalid");
@@ -165,7 +184,12 @@ public class FileManager {
 
     }
 
-
+    /**
+     * Method that checks whether file name has an ".xml" extension. If not, adds ".xml" to the end of file name.
+     *
+     * @param fileName  Name of the file to check
+     * @return          Name of the file with XML extension
+     */
     private String checkExtension(String fileName) {
         if (!fileName.contains(".xml")) {
             return fileName + ".xml";

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Adapter-class for JAXB
+ * Adapter class that gives instructions to JAXB how to handle LocalDateTime fields
  */
 
 public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {

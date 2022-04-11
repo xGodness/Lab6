@@ -13,9 +13,8 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 
 /**
- * Creating new movie through Console IO
+ * Class that connects with IO and creates new Movie instance based on user input.
  */
-
 public class MovieBuilder {
     private IOManager ioManager;
 
@@ -41,7 +40,7 @@ public class MovieBuilder {
             return new Movie(movieName, coordinates, creationDate, oscarsCount, tagline, genre, mpaaRating, screenwriter);
         } */
 
-        /* *
+        /**
          * Movie name field fetch
          */
         String movieName = null;

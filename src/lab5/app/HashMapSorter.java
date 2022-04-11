@@ -2,8 +2,15 @@ package lab5.app;
 
 import java.util.*;
 
+
+/**
+ * Singleton class that receives hash map and returns sorted linked hash map of Entry<String, String> elements.
+ */
 public class HashMapSorter {
 
+    /**
+     * Comparator to compare Entry<String, String> objects
+     */
     public static final Comparator<Map.Entry<String, String>> comparator = new Comparator<Map.Entry<String, String>>() {
 
         @Override
@@ -12,6 +19,12 @@ public class HashMapSorter {
         }
     };
 
+    /**
+     * Method that sorts hash map
+     *
+     * @param hashMap   <String, String> hash map to sort
+     * @return          Sorted linked hash map
+     */
     public static LinkedHashMap sortHashMap(HashMap<String, String> hashMap) {
 
         List<Map.Entry<String, String>> entryList = new LinkedList<>(hashMap.entrySet());
