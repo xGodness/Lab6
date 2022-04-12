@@ -18,10 +18,20 @@ import java.util.Locale;
 public class MovieBuilder {
     private IOManager ioManager;
 
+    /**
+     * The only constructor. IO Manager is necessary.
+     *
+     * @param ioManager IO Manager to connect with
+     */
     public MovieBuilder(IOManager ioManager) {
         this.ioManager = ioManager;
     }
 
+    /**
+     * Main method to create new movie instance
+     *
+     * @return  Built movie
+     */
     public Movie buildMovie() {
 
         String input;

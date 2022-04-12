@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Movie class
- * Class that collection is storing
+ * Movie class that collection is storing
  */
 
 @XmlAccessorType(XmlAccessType.FIELD)

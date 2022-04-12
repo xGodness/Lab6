@@ -16,15 +16,14 @@ import java.util.*;
 
 /**
  * Collection Manager class
- * Coordinates all work with the collection
+ * Provides interaction with the collection
  */
-
 @XmlRootElement(name = "Collection")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MoviesCollection {
     private LinkedList<Movie> collection = new LinkedList<>();
-    @XmlTransient
-    private LinkedList<Movie> sortedCollection = new LinkedList<>();
+//    @XmlTransient
+//    private LinkedList<Movie> sortedCollection = new LinkedList<>();
 
 
     @XmlTransient
@@ -51,6 +50,12 @@ public class MoviesCollection {
     /*________________________________________________________________________________________________________________
                                                     Setup
     ________________________________________________________________________________________________________________*/
+
+    /**
+     * Method to bind collection with application.
+     *
+     * @param application   Application instance to connect with
+     */
     public void setup(Application application) {
         this.application = application;
         this.ioManager = application.getIoManager();
@@ -182,6 +187,12 @@ public class MoviesCollection {
                                                 ID methods
     ________________________________________________________________________________________________________________*/
 
+    /**
+     * Methods to check whether given id has already been used.
+     *
+     * @param id    id to check
+     * @return      "true" if given id has already been used
+     */
     public boolean checkId(Long id) {
         if (id == null || id < 1) {
             return false;
@@ -189,6 +200,11 @@ public class MoviesCollection {
         return usedIds.contains(id);
     }
 
+    /**
+     * Method to generate next non-used id.
+     *
+     * @return  Generated id
+     */
     private Long generateNextId() {
         Long id;
         if (usedIds.isEmpty()) {
@@ -199,7 +215,7 @@ public class MoviesCollection {
                 id++;
             } while (usedIds.contains(id));
         }
-        updateSortedCollection();
+//        updateSortedCollection();
         return id;
     }
 
@@ -207,10 +223,10 @@ public class MoviesCollection {
                                                     Sorting
     ________________________________________________________________________________________________________________*/
 
-    public void updateSortedCollection() { //TODO update after every change
-        sortedCollection = (LinkedList<Movie>) collection.clone();
-        sortedCollection.sort(Movie::compareTo);
-    }
+//    public void updateSortedCollection() {
+//        sortedCollection = (LinkedList<Movie>) collection.clone();
+//        sortedCollection.sort(Movie::compareTo);
+//    }
 
     /*________________________________________________________________________________________________________________
                                                     Getters
