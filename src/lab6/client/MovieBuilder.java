@@ -1,4 +1,4 @@
-package lab6.collection;
+package lab6.client;
 
 import lab6.IO.IOManager;
 import lab6.movie_classes.Coordinates;

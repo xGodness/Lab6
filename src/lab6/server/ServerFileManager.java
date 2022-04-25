@@ -19,7 +19,7 @@ import java.io.*;
  */
 
 
-public class FileManager {
+public class ServerFileManager {
     private Application application;
 
     /**
@@ -27,7 +27,7 @@ public class FileManager {
      *
      * @param application   Connected Application instance
      */
-    public FileManager(Application application) {
+    public ServerFileManager(Application application) {
         this.application = application;
     }
 

@@ -5,7 +5,6 @@ import lab6.client.ConsoleManager;
 import lab6.collection.MoviesCollection;
 import lab6.commands.Command;
 import lab6.exceptions.collection_exceptions.CollectionException;
-import lab6.exceptions.collection_exceptions.LoadCollectionException;
 import lab6.exceptions.collection_exceptions.SaveCollectionException;
 import lab6.exceptions.file_exceptions.CannotCreateFileException;
 import lab6.exceptions.file_exceptions.FileAlreadyExistsException;
@@ -14,7 +13,6 @@ import lab6.exceptions.file_exceptions.InvalidFileNameException;
 import lab6.movie_classes.Movie;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -25,7 +23,7 @@ import java.util.LinkedList;
 public class Application {
     private IOManager ioManager;
     private MoviesCollection moviesCollection;
-    private FileManager fileManager;
+    private ServerFileManager serverFileManager;
     private ConsoleManager consoleManager;
     private Invoker invoker;
 
@@ -39,7 +37,7 @@ public class Application {
     public Application() {
         this.ioManager = new IOManager();
         this.moviesCollection = null;
-        this.fileManager = new FileManager(this);
+        this.serverFileManager = new ServerFileManager(this);
         this.invoker = new Invoker(this);
     }
 
@@ -57,7 +55,7 @@ public class Application {
     public LinkedList<String> loadCollection(String fileName) throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
         LinkedList<String> runtimeMessages = new LinkedList<>();
         currentFileName = fileName;
-        MoviesCollection rawMoviesCollection = fileManager.load(currentFileName);
+        MoviesCollection rawMoviesCollection = serverFileManager.load(currentFileName);
         LinkedList<Movie> rawCollection = rawMoviesCollection.getCollection();
         LinkedList<Movie> wrongMovies = new LinkedList<>();
         for (int i = 0; i < rawCollection.size(); i++) {
@@ -98,7 +96,7 @@ public class Application {
 
         LinkedList<String> runtimeMessages = new LinkedList<>();
         runtimeMessages.add(ioManager.statusText("Saving to \"" + currentFileName + "\"..."));
-        fileManager.save(moviesCollection, currentFileName);
+        serverFileManager.save(moviesCollection, currentFileName);
         runtimeMessages.add(ioManager.greenText("Collection has been saved"));
         return runtimeMessages;
     }
@@ -117,7 +115,7 @@ public class Application {
     public String createBlankFile(String fileName)
             throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, CannotCreateFileException  {
 
-        fileManager.create(fileName);
+        serverFileManager.create(fileName);
         currentFileName = fileName;
         moviesCollection = new MoviesCollection();
         moviesCollection.setup(this);
@@ -140,17 +138,7 @@ public class Application {
                                                      Initializers
     ________________________________________________________________________________________________________________*/
 
-    /**
-     * Launches Console Manager for further work.
-     */
-//    public void consoleStart() {
-//        if (moviesCollection == null) {
-//            ioManager.printlnErr("Collection not presented");
-//            return;
-//        }
-//        this.consoleManager = new ConsoleManager(this);
-//        consoleManager.execute();
-//    }
+
 
 
 
@@ -176,8 +164,8 @@ public class Application {
     /**
      * @return  Application's FileManager
      */
-    public FileManager getFileManager() {
-        return fileManager;
+    public ServerFileManager getFileManager() {
+        return serverFileManager;
     }
 
 
@@ -194,6 +182,7 @@ public class Application {
      * @throws CollectionException  Exception thrown during executing the command
      */
     public String executeCommand(Command command, Object[] args) throws CollectionException {
+        System.out.println(args);
         invoker.setCommand(command, args);
         return invoker.executeCommand();
     }

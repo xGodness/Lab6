@@ -19,8 +19,8 @@ import java.util.LinkedList;
 public class ServerService {
     public static final int PORT = 5432;
 
-    private static ByteBuffer buffer = ByteBuffer.allocate(1024);
-    private static byte[] bytes = new byte[1024];
+    private static ByteBuffer buffer = ByteBuffer.allocate(4096);
+    private static byte[] bytes = new byte[4096];
     private static DatagramSocket socket = null;
     private static DatagramPacket packet = null;
     private static InetAddress clientAddress;
@@ -48,7 +48,11 @@ public class ServerService {
 
             while (isRunning) {
                 receiveRequest(); // todo: execute command
-                Request request = (Request) Serializer.deserialize(extractBuffer(buffer));
+                bytes = extractBuffer(buffer);
+                System.out.println(bytes.length);
+                for (byte b : bytes) System.out.println(b);
+                Request request = (Request) Serializer.deserialize(bytes);
+                System.out.println(request.toString());
                 if (request.getType() == RequestType.LOAD) {
                     String fileName = (String) request.getArgs()[0];
                     loadFile(fileName);
@@ -59,11 +63,15 @@ public class ServerService {
                     createFile(fileName);
                     continue;
                 }
-                if (request.getType() == RequestType.EXECUTE) {
+                if (request.getType() == RequestType.EXECUTE_COMMAND) {
                     Command command = request.getCommand();
                     Object[] cmdArgs = request.getArgs();
                     executeCommand(command, cmdArgs);
                     continue;
+                }
+
+                if (request.getType() == RequestType.EXECUTE_SCRIPT) {
+
                 }
 
                 if (request.getType() == RequestType.EXIT) {
@@ -75,11 +83,16 @@ public class ServerService {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
     /*______________________________________________________________________________________________________________*/
     /*                                     Client's requests methods                                                */
+
+    private static void executeScript(String fileName) {
+
+    }
 
     private static boolean exit() throws IOException {
         try {

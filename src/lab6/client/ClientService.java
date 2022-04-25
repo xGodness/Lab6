@@ -14,8 +14,8 @@ import java.time.Instant;
 public class ClientService {
     public static final int PORT = 5432;
 
-    private static ByteBuffer buffer = ByteBuffer.allocate(1024);
-    private static byte[] bytes = new byte[1024];
+    private static ByteBuffer buffer = ByteBuffer.allocate(4096);
+    private static byte[] bytes = new byte[4096];
     private static DatagramChannel datagramChannel = null;
 
     private static InetAddress serverAddress;
@@ -24,7 +24,7 @@ public class ClientService {
     private static IOManager ioManager = new IOManager();
     private static ConsoleManager consoleManager = new ConsoleManager(ioManager);
 
-    public static void main(String[] args) {
+    public static void main() {
         try {
             startClient();
             establishConnection();
@@ -41,7 +41,23 @@ public class ClientService {
                 fileWasFetched = fileFetch();
             }
 
-
+            while (true) {
+                Request request = consoleManager.execute();
+                if (request != null) {
+                    sendRequest(request);
+                    receiveResponse();
+                    response = (Response) Serializer.deserialize(buffer.array());
+                    ResponseType responseType = response.getType();
+                    if (responseType == ResponseType.ERROR) {
+                        ioManager.printlnErr(response.getExitMessage());
+                    } else if (response.getRuntimeMessages() != null) {
+                        for (String msg : response.getRuntimeMessages()) {
+                            ioManager.printlnOut(msg);
+                        }
+                        ioManager.printlnOut(response.getExitMessage());
+                    }
+                }
+            }
 
 
         } catch (Exception e) {
@@ -59,8 +75,8 @@ public class ClientService {
                 fileName = null;
             }
         }
-        Request openFileRequest = new Request(RequestType.LOAD, new String[] {fileName});
-        sendRequest(openFileRequest);
+        Request fileRequest = new Request(RequestType.LOAD, new String[] {fileName});
+        sendRequest(fileRequest);
         receiveResponse();
         Response response = (Response) Serializer.deserialize(extractBuffer(buffer));
         if (response.getType() == ResponseType.SUCCESS) {
@@ -71,7 +87,8 @@ public class ClientService {
         if (response.getExceptionType() == ExceptionType.FILE_NOT_FOUND) {
             String answer = ioManager.getNextInput("Would you like to create new blank file \"" + fileName + "\"? (y/n): ");
             if (answer.equalsIgnoreCase("y")) {
-                openFileRequest.setType(RequestType.CREATE);
+                fileRequest = new Request(RequestType.CREATE, new String[] {fileName});
+                sendRequest(fileRequest);
                 receiveResponse();
                 response = (Response) Serializer.deserialize(extractBuffer(buffer));
                 if (response.getType() == ResponseType.SUCCESS) {
@@ -115,6 +132,7 @@ public class ClientService {
     }
 
     private static void sendRequest(Request request) throws IOException {
+        System.out.println(request);
         datagramChannel.send(ByteBuffer.wrap((Serializer.serialize(request))), serverSocketAddress);
     }
 

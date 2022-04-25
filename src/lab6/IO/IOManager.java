@@ -28,12 +28,19 @@ public class IOManager {
         this.scanner = scanner;
     }
 
-    public void popScanner() {
+    public boolean hasNext() {
+        return scanner.hasNext();
+    }
+
+    // return true if empty
+    public boolean popScanner() {
         scannerStack.pop();
         if (scannerStack.isEmpty()) {
             scanner = defaultScanner;
+            return true;
         } else {
             scanner = scannerStack.peek();
+            return false;
         }
     }
 
@@ -43,13 +50,19 @@ public class IOManager {
     }
 
     public String getNextInput() {
+        while (!scannerStack.isEmpty() && !scanner.hasNext()) {
+            popScanner();
+        }
         String input = null;
         while (input == null) {
             try {
                 input = scanner.nextLine();
+                if (!scannerStack.isEmpty()) {
+                    printlnOut(input);
+                }
             } catch (Exception e) {
                 printlnOut("Invalid input error. Try again: ");
-                scanner = new Scanner(System.in).useDelimiter("\n");
+//                scanner = new Scanner(System.in).useDelimiter("\n");
             }
         }
         return input;

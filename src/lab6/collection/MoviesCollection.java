@@ -1,6 +1,7 @@
 package lab6.collection;
 
 import lab6.IO.IOManager;
+import lab6.client.MovieBuilder;
 import lab6.exceptions.collection_exceptions.SaveCollectionException;
 import lab6.exceptions.file_exceptions.FilePermissionException;
 import lab6.exceptions.file_exceptions.InvalidFileNameException;

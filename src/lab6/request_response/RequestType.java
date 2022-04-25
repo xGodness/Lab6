@@ -5,7 +5,8 @@ import java.io.Serializable;
 public enum RequestType implements Serializable {
     LOAD("Load"),
     CREATE("Create"),
-    EXECUTE("Execute"),
+    EXECUTE_COMMAND("Execute command"),
+    EXECUTE_SCRIPT("Execute script"),
     EXIT("Exit");
 
     private String label;

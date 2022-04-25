@@ -2,6 +2,7 @@ package lab6.commands;
 
 import com.sun.istack.internal.NotNull;
 import lab6.collection.MoviesCollection;
+import lab6.exceptions.collection_exceptions.CollectionException;
 
 public class InfoCommand extends Command {
     public static final String tag = "info";
@@ -20,7 +21,8 @@ public class InfoCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollection moviesCollection, Object[] args) {
+    public String execute(@NotNull MoviesCollection moviesCollection, Object[] args) throws CollectionException {
+        if (moviesCollection.getCollection().isEmpty()) throw new CollectionException("Collection is empty");
         return
                         "Collection type     : " + moviesCollection.getCollection().getClass() + "\n" +
                         "Initialization date : " + moviesCollection.getInitDateTime() + "\n" +
