@@ -1,11 +1,9 @@
 package lab6.commands;
 
 import com.sun.istack.internal.NotNull;
-import lab6.collection.MoviesCollection;
 import lab6.exceptions.collection_exceptions.CollectionException;
 import lab6.movie_classes.Movie;
-
-import java.io.IOException;
+import lab6.server.MoviesCollection;
 
 public class AddCommand extends Command {
     public static final String description = "ADD {element} ... adds new element to collection";

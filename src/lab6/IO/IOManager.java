@@ -1,5 +1,8 @@
 package lab6.IO;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -8,14 +11,19 @@ import java.util.Stack;
  */
 
 public class IOManager {
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001b[33m";
-    private static final String ANSI_RESET = "\033[0m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
     private final Scanner defaultScanner = new Scanner(System.in).useDelimiter("\n");
+    private final String[] colours = new String[]{ANSI_BLUE, ANSI_YELLOW, ANSI_CYAN, ANSI_RED, ANSI_GREEN, ANSI_PURPLE, ANSI_WHITE};
+    private final Random random = new Random();
     private Scanner scanner;
     private StringValidator stringValidator;
-
     private Stack<Scanner> scannerStack = new Stack<>();
 
     public IOManager() {
@@ -30,6 +38,10 @@ public class IOManager {
 
     public boolean hasNext() {
         return scanner.hasNext();
+    }
+
+    public boolean isScannerStackEmpty() {
+        return scannerStack.isEmpty();
     }
 
     // return true if empty
@@ -50,18 +62,19 @@ public class IOManager {
     }
 
     public String getNextInput() {
-        while (!scannerStack.isEmpty() && !scanner.hasNext()) {
-            popScanner();
-        }
         String input = null;
         while (input == null) {
+            if (!scannerStack.isEmpty() && !scanner.hasNext()) {
+                popScanner();
+            }
             try {
                 input = scanner.nextLine();
                 if (!scannerStack.isEmpty()) {
-                    printlnOut(input);
+                    printlnOut("\n>>> " + input);
                 }
             } catch (Exception e) {
-                printlnOut("Invalid input error. Try again: ");
+                e.printStackTrace();
+                printOut("Invalid input error. Try again: ");
 //                scanner = new Scanner(System.in).useDelimiter("\n");
             }
         }
@@ -69,9 +82,81 @@ public class IOManager {
     }
 
     public String getNextInput(String preMessage) {
-        if (scannerStack.isEmpty()) printOut(preMessage);
-        return getNextInput();
+        printOut(preMessage);
+        String input = getNextInput();
+        if (input.length() > 100) {
+            printlnErr("Input limit has been reached");
+            return "";
+        }
+        return input;
     }
+
+    public Double getNextDouble(String preMessage, boolean nullAllowed) {
+        String input;
+        Double d = null;
+        while (d == null) {
+            if (preMessage != null) {
+                printOut(preMessage);
+            }
+            input = getNextInput();
+            if (nullAllowed && input.trim().equals("")) return null;
+            try {
+                d = Double.parseDouble(input);
+                if (d == Double.POSITIVE_INFINITY || d == Double.NEGATIVE_INFINITY) {
+                    printlnErr("Incorrect input. Number too small or too big");
+                    d = null;
+                }
+            } catch (NumberFormatException e) {
+                printlnErr("Incorrect input. Double-type value expected");
+            }
+        }
+        return d;
+    }
+
+    public Float getNextFloat(String preMessage, boolean nullAllowed) {
+        String input;
+        Float f = null;
+        while (f == null) {
+            if (preMessage != null) {
+                printOut(preMessage);
+            }
+            input = getNextInput();
+            if (nullAllowed && input.trim().equals("")) return null;
+            try {
+                f = Float.parseFloat(input);
+                if (f == Float.POSITIVE_INFINITY || f == Float.NEGATIVE_INFINITY) {
+                    printlnErr("Number too small or too big");
+                    f = null;
+                }
+            } catch (NumberFormatException e) {
+                printlnErr("Incorrect input. Float-type value expected");
+            }
+        }
+        return f;
+    }
+
+    public Integer getNextInteger(String preMessage, boolean nullAllowed) {
+        String input;
+        Integer i = null;
+        while (i == null) {
+            if (preMessage != null) {
+                printOut(preMessage);
+            }
+            input = getNextInput();
+            if (nullAllowed && input.equals("")) return null;
+            try {
+                i = Integer.parseInt(input);
+                if (i == Integer.MAX_VALUE || i == Integer.MIN_VALUE) {
+                    printlnErr("Number too small or too big");
+                    i = null;
+                }
+            } catch (NumberFormatException e) {
+                printlnErr("Incorrect input. Integer-type value expected");
+            }
+        }
+        return i;
+    }
+
 
     public String redText(String message) {
         return ANSI_RED + message + ANSI_RESET;
@@ -97,28 +182,31 @@ public class IOManager {
         System.out.println(message);
     }
 
-    public void printlnErr(String message) {
-        System.out.println(redText(message));
+    public void printErr(String message) {
+        printOut(ANSI_RED + message + ANSI_RESET);
     }
 
-    public void printlnInfo(String message) {
-        System.out.println(yellowText(message));
+    public void printlnErr(String message) {
+        printlnOut(ANSI_RED + message + ANSI_RESET);
     }
 
     public void printlnSuccess(String message) {
-        System.out.println(greenText(message));
+        printlnOut(ANSI_GREEN + message + ANSI_RESET);
     }
 
     public void printlnInfoFormat(String[] message) {
         if (message.length == 2) {
-            System.out.format("%-54s", yellowText(message[0]));
-            System.out.format("%s", yellowText(message[1]) + "\n");
+            System.out.format("%-54s", ANSI_YELLOW + message[0] + ANSI_RESET);
+            System.out.format("%s", ANSI_YELLOW + message[1] + ANSI_RESET + "\n");
         }
     }
 
+    public void printlnYellow(String message) {
+        printlnOut(ANSI_YELLOW + message + ANSI_RESET);
+    }
 
     public void printlnStatus(String message) {
-        System.out.println("[STATUS] " + message);
+        printlnOut(ANSI_YELLOW + "[STATUS] " + message + ANSI_RESET);
     }
 
     public boolean isStringValid(String string) {
@@ -131,6 +219,25 @@ public class IOManager {
 
     public boolean isSpacesOnly(String string) {
         return stringValidator.spacesOnlyValidation(string);
+    }
+
+    public void sleep(int sec) {
+        Instant awaitTime = Instant.now();
+        while (Duration.between(awaitTime, Instant.now()).getSeconds() < sec) {
+        }
+        return;
+    }
+
+    public void printlnRainbow(String message) {
+        StringBuilder out = new StringBuilder();
+        for (char c : message.toCharArray()) {
+            out.append(randomColour()).append(c).append(ANSI_RESET);
+        }
+        printlnOut(out.toString());
+    }
+
+    private String randomColour() {
+        return colours[random.nextInt(colours.length)];
     }
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public enum ResponseType implements Serializable {
     SUCCESS("Success"),
+    SUCCESS_AND_FILE_ALREADY_LOADED("Success and file already loaded"),
     ERROR("Error");
 
     private String label;

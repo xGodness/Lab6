@@ -1,8 +1,8 @@
 package lab6.movie_classes;
 
-import lab6.server.LocalDateTimeAdapter;
 import lab6.movie_classes.enums.MovieGenre;
 import lab6.movie_classes.enums.MpaaRating;
+import lab6.server.LocalDateTimeAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -56,10 +56,7 @@ public class Movie
 
     @Override
     public int compareTo(Movie m) {
-        if (oscarsCount == null && m.getOscarsCount() == null) return 0;
-        if (oscarsCount == null) return m.getOscarsCount();
-        if (m.getOscarsCount() == null) return oscarsCount;
-        return oscarsCount - m.getOscarsCount();
+        return coordinates.compareTo(m.getCoordinates());
     }
 
     @Override

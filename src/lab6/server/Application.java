@@ -2,7 +2,6 @@ package lab6.server;
 
 import lab6.IO.IOManager;
 import lab6.client.ConsoleManager;
-import lab6.collection.MoviesCollection;
 import lab6.commands.Command;
 import lab6.exceptions.collection_exceptions.CollectionException;
 import lab6.exceptions.collection_exceptions.SaveCollectionException;
@@ -49,8 +48,8 @@ public class Application {
      * Loads collection from the file.
      * Will be running until collection is loaded.
      *
-     * @param fileName  Name of the file to load from
-     * @return          Runtime messages
+     * @param fileName Name of the file to load from
+     * @return Runtime messages
      */
     public LinkedList<String> loadCollection(String fileName) throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
         LinkedList<String> runtimeMessages = new LinkedList<>();
@@ -72,7 +71,7 @@ public class Application {
             }
         }
         if (wrongMovies.size() != 0) {
-            runtimeMessages.add(ioManager.statusText("Corrupted elements were found. Fixing the file..."));
+            runtimeMessages.add("Corrupted elements were found. Fixing the file...");
         }
         rawCollection.removeAll(wrongMovies);
         moviesCollection = rawMoviesCollection;
@@ -80,7 +79,7 @@ public class Application {
         moviesCollection.setup(this);
         collectionWasLoaded = true;
 
-        runtimeMessages.add(ioManager.greenText("Collection has been loaded from \"" + currentFileName + "\""));
+        runtimeMessages.add("Collection has been loaded from \"" + currentFileName + "\"");
 
         return runtimeMessages;
     }
@@ -89,15 +88,15 @@ public class Application {
      * Saves collection to the file application is currently working with.
      * File name should already been presented in Application class (field "currentFileName").
      *
-     * @return  Runtime messages
+     * @return Runtime messages
      */
     public LinkedList<String> saveCollection()
             throws FilePermissionException, InvalidFileNameException, SaveCollectionException, FileNotFoundException {
 
         LinkedList<String> runtimeMessages = new LinkedList<>();
-        runtimeMessages.add(ioManager.statusText("Saving to \"" + currentFileName + "\"..."));
+        runtimeMessages.add("Saving to \"" + currentFileName + "\"...");
         serverFileManager.save(moviesCollection, currentFileName);
-        runtimeMessages.add(ioManager.greenText("Collection has been saved"));
+        runtimeMessages.add("Collection has been saved");
         return runtimeMessages;
     }
 
@@ -109,11 +108,11 @@ public class Application {
     /**
      * Creates blank file if file with specified name does not exist.
      *
-     * @param fileName  Name of the file to create
-     * @return          "true" if file was created and "false" otherwise
+     * @param fileName Name of the file to create
+     * @return "true" if file was created and "false" otherwise
      */
     public String createBlankFile(String fileName)
-            throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, CannotCreateFileException  {
+            throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, CannotCreateFileException {
 
         serverFileManager.create(fileName);
         currentFileName = fileName;
@@ -148,21 +147,21 @@ public class Application {
     ________________________________________________________________________________________________________________*/
 
     /**
-     * @return  Application's IOManager
+     * @return Application's IOManager
      */
     public IOManager getIoManager() {
         return ioManager;
     }
 
     /**
-     * @return  Application's MoviesCollection
+     * @return Application's MoviesCollection
      */
     public MoviesCollection getMoviesCollection() {
         return moviesCollection;
     }
 
     /**
-     * @return  Application's FileManager
+     * @return Application's FileManager
      */
     public ServerFileManager getFileManager() {
         return serverFileManager;
@@ -176,10 +175,10 @@ public class Application {
     /**
      * Sets command to invoker and makes it to execute.
      *
-     * @param command               Command to execute
-     * @param args                  Command arguments (necessary, can be null)
-     * @return                      Execution result
-     * @throws CollectionException  Exception thrown during executing the command
+     * @param command Command to execute
+     * @param args    Command arguments (necessary, can be null)
+     * @return Execution result
+     * @throws CollectionException Exception thrown during executing the command
      */
     public String executeCommand(Command command, Object[] args) throws CollectionException {
         System.out.println(args);

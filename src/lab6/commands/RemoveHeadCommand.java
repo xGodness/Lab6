@@ -1,9 +1,9 @@
 package lab6.commands;
 
 import com.sun.istack.internal.NotNull;
-import lab6.collection.MoviesCollection;
 import lab6.exceptions.collection_exceptions.EmptyCollectionException;
 import lab6.movie_classes.Movie;
+import lab6.server.MoviesCollection;
 
 public class RemoveHeadCommand extends Command {
     public static final String tag = "remove_head";

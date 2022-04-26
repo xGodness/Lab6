@@ -1,9 +1,9 @@
 package lab6.movie_classes;
 
-import lab6.server.LocalDateAdapter;
 import lab6.movie_classes.enums.Country;
 import lab6.movie_classes.enums.EyeColor;
 import lab6.movie_classes.enums.HairColor;
+import lab6.server.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -90,7 +90,7 @@ public class Person
 
     @Override
     public String toString() {
-        return  "| \tName        : " + name + "\n" +
+        return "| \tName        : " + name + "\n" +
                 "| \tBirthday    : " + ((birthday == null) ? "" : birthday) + "\n" +
                 "| \tEye color   : " + eyeColor + "\n" +
                 "| \tHair color  : " + hairColor + "\n" +

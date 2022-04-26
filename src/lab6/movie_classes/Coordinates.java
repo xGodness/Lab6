@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Coordinates implements Serializable {
+public class Coordinates implements Comparable<Coordinates>, Serializable {
     private Double x;
     private Float y;
 
@@ -34,9 +34,15 @@ public class Coordinates implements Serializable {
     }
 
     @Override
+    public int compareTo(Coordinates c) {
+        if (c == null) return (int) (x + y);
+        return (int) (x + y - c.getX() - c.getY());
+    }
+
+    @Override
     public String toString() {
         return
                 "| \tX           : " + x + "\n" +
-                "| \tY           : " + y + "\n";
+                        "| \tY           : " + y + "\n";
     }
 }

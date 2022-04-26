@@ -1,14 +1,13 @@
-package lab6.collection;
+package lab6.server;
 
 import lab6.IO.IOManager;
 import lab6.client.MovieBuilder;
-import lab6.exceptions.collection_exceptions.SaveCollectionException;
-import lab6.exceptions.file_exceptions.FilePermissionException;
-import lab6.exceptions.file_exceptions.InvalidFileNameException;
-import lab6.server.Application;
 import lab6.exceptions.collection_exceptions.CollectionException;
 import lab6.exceptions.collection_exceptions.EmptyCollectionException;
 import lab6.exceptions.collection_exceptions.IdException;
+import lab6.exceptions.collection_exceptions.SaveCollectionException;
+import lab6.exceptions.file_exceptions.FilePermissionException;
+import lab6.exceptions.file_exceptions.InvalidFileNameException;
 import lab6.movie_classes.Movie;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -56,7 +55,7 @@ public class MoviesCollection {
     /**
      * Method to bind collection with application.
      *
-     * @param application   Application instance to connect with
+     * @param application Application instance to connect with
      */
     public void setup(Application application) {
         this.application = application;
@@ -95,24 +94,6 @@ public class MoviesCollection {
         identifiers.put(id, movie);
         usedIds.add(id);
         collection.add(movie);
-    }
-
-
-    public void updateMovie(Long id) throws IdException {
-        if (!checkId(id)) {
-            throw new IdException("Movie with id " + id + " doesn't exist");
-        }
-        Movie movie = movieBuilder.buildMovie();
-        movie.setId(id);
-        int tmpId = collection.indexOf(identifiers.get(id));
-        if (tmpId < 1) {
-            throw new IdException("Movie with id " + id + " doesn't exist");
-        }
-        collection.set(
-                collection.indexOf(identifiers.get(id)),
-                movie
-        );
-        identifiers.replace(id, movie);
     }
 
     public void updateMovie(Long id, Movie movie) throws IdException {
@@ -155,8 +136,7 @@ public class MoviesCollection {
         );
     }
 
-    public boolean addIfMax() {
-        Movie movie = movieBuilder.buildMovie();
+    public boolean addIfMax(Movie movie) {
 
         int compResult;
         try {
@@ -228,8 +208,8 @@ public class MoviesCollection {
     /**
      * Methods to check whether given id has already been used.
      *
-     * @param id    id to check
-     * @return      "true" if given id has already been used
+     * @param id id to check
+     * @return "true" if given id has already been used
      */
     public boolean checkId(Long id) {
         if (id == null || id < 1) {
@@ -241,7 +221,7 @@ public class MoviesCollection {
     /**
      * Method to generate next non-used id.
      *
-     * @return  Generated id
+     * @return Generated id
      */
     private Long generateNextId() {
         Long id;

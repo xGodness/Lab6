@@ -1,6 +1,5 @@
 package lab6.server;
 
-import lab6.collection.MoviesCollection;
 import lab6.exceptions.collection_exceptions.LoadCollectionException;
 import lab6.exceptions.collection_exceptions.SaveCollectionException;
 import lab6.exceptions.file_exceptions.CannotCreateFileException;
@@ -25,7 +24,7 @@ public class ServerFileManager {
     /**
      * The only constructor. Needs Application as argument because link to the connected application is necessary.
      *
-     * @param application   Connected Application instance
+     * @param application Connected Application instance
      */
     public ServerFileManager(Application application) {
         this.application = application;
@@ -34,12 +33,12 @@ public class ServerFileManager {
     /**
      * Method that loads collection from the XML-file.
      *
-     * @param  fileName                     Name of the file to read collection from
-     * @return                              Collection instance that created from the file
-     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
-     * @throws FilePermissionException      Exception thrown if file is not accessible
-     * @throws FileNotFoundException        Exception thrown if file was not found
-     * @throws LoadCollectionException      Exception thrown if program could not parse the file and load collection from it
+     * @param fileName Name of the file to read collection from
+     * @return Collection instance that created from the file
+     * @throws InvalidFileNameException Exception thrown if invalid file name was given
+     * @throws FilePermissionException  Exception thrown if file is not accessible
+     * @throws FileNotFoundException    Exception thrown if file was not found
+     * @throws LoadCollectionException  Exception thrown if program could not parse the file and load collection from it
      */
     public MoviesCollection load(String fileName)
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
@@ -80,12 +79,12 @@ public class ServerFileManager {
     /**
      * Method that creates new file.
      *
-     * @param  fileName                     Name of the file to create
-     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
-     * @throws FileAlreadyExistsException   Exception thrown if file with given name already exists
-     * @throws FilePermissionException      Exception thrown if file is not accessible
-     * @throws IOException                  Exception thrown if IO manager had caught incorrect input
-     * @throws CannotCreateFileException    Exception thrown if File Manager could not create file due to unexpected error
+     * @param fileName Name of the file to create
+     * @throws InvalidFileNameException   Exception thrown if invalid file name was given
+     * @throws FileAlreadyExistsException Exception thrown if file with given name already exists
+     * @throws FilePermissionException    Exception thrown if file is not accessible
+     * @throws IOException                Exception thrown if IO manager had caught incorrect input
+     * @throws CannotCreateFileException  Exception thrown if File Manager could not create file due to unexpected error
      */
     public void create(String fileName)
             throws InvalidFileNameException, FileAlreadyExistsException, FilePermissionException, CannotCreateFileException {
@@ -118,13 +117,13 @@ public class ServerFileManager {
     /**
      * Method that saves collection to the XML-file.
      *
-     * @param collection                    Collection instance to save
-     * @param fileName                      Name of the file to save to
-     * @return                              "true" if collection has been saved successfully
-     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
-     * @throws FilePermissionException      Exception thrown if file is not accessible
-     * @throws FileNotFoundException        Exception thrown if file with given name does not exist
-     * @throws SaveCollectionException      Exception thrown if JAXB could not save collection to the file due to unexpected error
+     * @param collection Collection instance to save
+     * @param fileName   Name of the file to save to
+     * @return "true" if collection has been saved successfully
+     * @throws InvalidFileNameException Exception thrown if invalid file name was given
+     * @throws FilePermissionException  Exception thrown if file is not accessible
+     * @throws FileNotFoundException    Exception thrown if file with given name does not exist
+     * @throws SaveCollectionException  Exception thrown if JAXB could not save collection to the file due to unexpected error
      */
     public boolean save(MoviesCollection collection, String fileName)
             throws InvalidFileNameException, FilePermissionException, FileNotFoundException, SaveCollectionException {
@@ -165,11 +164,11 @@ public class ServerFileManager {
     /**
      * Method that opens file as a Java-object.
      *
-     * @param fileName                      Name of the file to open
-     * @return                              Java File instance
-     * @throws InvalidFileNameException     Exception thrown if invalid file name was given
-     * @throws FilePermissionException      Exception thrown if file is not accessible
-     * @throws FileNotFoundException        Exception thrown if file with given name does not exist
+     * @param fileName Name of the file to open
+     * @return Java File instance
+     * @throws InvalidFileNameException Exception thrown if invalid file name was given
+     * @throws FilePermissionException  Exception thrown if file is not accessible
+     * @throws FileNotFoundException    Exception thrown if file with given name does not exist
      */
     public File openFile(String fileName) throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
         if (!application.isStringValid(fileName)) {
@@ -189,8 +188,8 @@ public class ServerFileManager {
     /**
      * Method that checks whether file name has an ".xml" extension. If not, adds ".xml" to the end of file name.
      *
-     * @param fileName  Name of the file to check
-     * @return          Name of the file with XML extension
+     * @param fileName Name of the file to check
+     * @return Name of the file with XML extension
      */
     private String checkExtension(String fileName) {
         if (!fileName.contains(".xml")) {

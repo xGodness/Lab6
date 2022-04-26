@@ -22,8 +22,8 @@ public class HashMapSorter {
     /**
      * Method that sorts hash map
      *
-     * @param hashMap   <String, String> hash map to sort
-     * @return          Sorted linked hash map
+     * @param hashMap <String, String> hash map to sort
+     * @return Sorted linked hash map
      */
     public static LinkedHashMap sortHashMap(HashMap<String, String> hashMap) {
 
@@ -38,7 +38,6 @@ public class HashMapSorter {
 
         return sortedHashMap;
     }
-
 
 
 }

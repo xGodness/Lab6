@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Location implements Serializable {
+public class Location implements Comparable<Location>, Serializable {
 
     private int x;
     private double y;
@@ -45,8 +45,16 @@ public class Location implements Serializable {
     }
 
     @Override
+    public int compareTo(Location l) {
+        if (name == null && l.getName() == null) return 0;
+        if (name == null) return l.getName().compareTo("");
+        if (l.getName() == null) return name.compareTo("");
+        return name.compareTo(l.getName());
+    }
+
+    @Override
     public String toString() {
-        return  "| \t\tName    : " + name + "\n" +
+        return "| \t\tName    : " + name + "\n" +
                 "| \t\tX       : " + x + "\n" +
                 "| \t\tY       : " + y;
     }

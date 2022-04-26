@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Response implements Serializable {
     private ResponseType type;
-    private String exitMessage = null;
+    private String exitMessage;
     private LinkedList<String> runtimeMessages = null;
     private ExceptionType exceptionType = ExceptionType.NO_EXCEPTION;
 
@@ -65,9 +65,9 @@ public class Response implements Serializable {
     public String toString() {
         return "Response{" +
                 "type=" + type +
-                ( (exitMessage == null)                                     ? "" : (", exitMessage='" + exitMessage + '\'')) +
-                ( (exceptionType == ExceptionType.NO_EXCEPTION)             ? "" : (", exceptionType=" + exceptionType)) +
-                ( (runtimeMessages == null || runtimeMessages.size() == 0)  ? "" : (", runtimeMessages=" + runtimeMessages)) +
+                ((exitMessage == null) ? "" : (", exitMessage='" + exitMessage + '\'')) +
+                ((exceptionType == ExceptionType.NO_EXCEPTION) ? "" : (", exceptionType=" + exceptionType)) +
+                ((runtimeMessages == null || runtimeMessages.size() == 0) ? "" : (", runtimeMessages=" + runtimeMessages)) +
                 '}';
     }
 }

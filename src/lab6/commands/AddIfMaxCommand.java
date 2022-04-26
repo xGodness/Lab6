@@ -1,9 +1,9 @@
 package lab6.commands;
 
 import com.sun.istack.internal.NotNull;
-import lab6.collection.MoviesCollection;
 import lab6.exceptions.collection_exceptions.CollectionException;
 import lab6.movie_classes.Movie;
+import lab6.server.MoviesCollection;
 
 public class AddIfMaxCommand extends Command {
     public static final String tag = "add_if_max";
@@ -25,7 +25,7 @@ public class AddIfMaxCommand extends Command {
     public String execute(@NotNull MoviesCollection moviesCollection, Object[] args) throws CollectionException {
         try {
             Movie movie = (Movie) args[0];
-            return moviesCollection.addIfMax() ? "New movie has been added" : "Specified movie has not added";
+            return moviesCollection.addIfMax(movie) ? "New movie has been added" : "Specified movie has not added";
         } catch (RuntimeException e) {
             throw new CollectionException("Movie was not specified");
         }

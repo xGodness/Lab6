@@ -3,6 +3,7 @@ package lab6.request_response;
 import java.io.Serializable;
 
 public enum RequestType implements Serializable {
+    CONNECT("Connect"),
     LOAD("Load"),
     CREATE("Create"),
     EXECUTE_COMMAND("Execute command"),
@@ -12,7 +13,7 @@ public enum RequestType implements Serializable {
     private String label;
 
     RequestType(String requestType) {
-         label = requestType;
+        label = requestType;
     }
 
     public static RequestType valueOfLabel(String label) {
