@@ -2,7 +2,7 @@ package lab6.movieclasses;
 
 import lab6.movieclasses.enums.MpaaRating;
 import lab6.movieclasses.enums.MovieGenre;
-import lab6.jaxbadapters.LocalDateTimeAdapter;
+import lab6.server.jaxbadapters.LocalDateTimeAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

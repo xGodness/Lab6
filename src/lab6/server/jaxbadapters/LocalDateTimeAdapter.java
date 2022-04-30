@@ -1,4 +1,4 @@
-package lab6.jaxbadapters;
+package lab6.server.jaxbadapters;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;

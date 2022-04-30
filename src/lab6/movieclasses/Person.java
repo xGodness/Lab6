@@ -3,7 +3,7 @@ package lab6.movieclasses;
 import lab6.movieclasses.enums.Country;
 import lab6.movieclasses.enums.EyeColor;
 import lab6.movieclasses.enums.HairColor;
-import lab6.jaxbadapters.LocalDateAdapter;
+import lab6.server.jaxbadapters.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
