@@ -54,7 +54,7 @@ public class ConsoleManager {
                 .getAllRegisteredTags()
                 .stream()
                 .collect(Collectors
-                        .toMap(t -> t, (t) -> {
+                        .toMap(t -> t, t -> {
                                     try {
                                         return CommandsFactory.getDescription(t);
                                     } catch (CommandNotFoundException ignored) {}
@@ -118,10 +118,13 @@ public class ConsoleManager {
         commandTag = parsedInput.pollFirst();
         switch (commandTag) {
             case ("help"):
-                descriptionsHashMap.values().stream().forEach(s -> s.split("\\.\\.\\."));
-                for (String cmdDescription : descriptionsHashMap.values()) {
-                    ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
-                }
+                descriptionsHashMap.values()
+                        .stream()
+                        .map(s -> s.split("\\.\\.\\."))
+                        .forEach(ioManager::printlnInfoFormat);
+//                for (String cmdDescription : descriptionsHashMap.values()) {
+//                    ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
+//                }
                 return null;
             case ("exit"):
                 return new Request(RequestType.EXIT);
