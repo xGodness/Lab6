@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 
 /**
- * Class that connects with lab6.lab6.client.lab6.IO and creates new Movie instance based on user input.
+ * Class that connects with IO and creates new Movie instance based on user input.
  */
 public class MovieBuilder {
     private IOManager ioManager;
 
     /**
-     * The only constructor. lab6.lab6.client.lab6.IO Manager is necessary.
+     * The only constructor. IO Manager is necessary.
      *
-     * @param ioManager lab6.lab6.client.lab6.IO Manager to connect with
+     * @param ioManager IO Manager to connect with
      */
     public MovieBuilder(IOManager ioManager) {
         this.ioManager = ioManager;

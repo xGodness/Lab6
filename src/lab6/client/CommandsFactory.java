@@ -15,7 +15,7 @@ public class CommandsFactory {
     private static HashMap<String, Class<? extends Command>> registeredCommands = new HashMap<>();
 
     /**
-     * Static method to load command class to class loader. Saves loaded lab6.commands to hash map.
+     * Static method to load command class to class loader. Saves loaded commands to hash map.
      *
      * @param tag    Command name
      * @param _class Command class
@@ -56,7 +56,7 @@ public class CommandsFactory {
      * Static method to create new command instance by its tag.
      *
      * @param tag Command name
-     *            //     * @param moviesCollection                  Current lab6.collection. Necessary due to lab6.commands' constructors need it
+     *            //     * @param moviesCollection                  Current .collection. Necessary due to commands' constructors need it
      * @return New command instance
      * @throws CommandNotFoundException     Exception thrown in case factory could not access command by its tag
      * @throws CannotAccessCommandException Exception thrown in case factory could not access command because of its access modifiers
@@ -76,9 +76,9 @@ public class CommandsFactory {
     }
 
     /**
-     * Static method to get all registered lab6.commands as a set.
+     * Static method to get all registered commands as a set.
      *
-     * @return All registered lab6.commands
+     * @return All registered commands
      */
     public static Set<String> getAllRegisteredTags() {
         return registeredCommands.keySet();

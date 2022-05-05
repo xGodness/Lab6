@@ -20,11 +20,11 @@ import java.util.*;
 
 /**
  * Collection Manager class
- * Provides interaction with the lab6.collection
+ * Provides interaction with the collection
  */
 @XmlRootElement(name = "Collection")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MoviesCollection implements MoviesCollectionImpl {
+public class CollectionManager implements CollectionManagerImpl {
     private LinkedList<Movie> collection = new LinkedList<>();
 
     @XmlTransient
@@ -40,7 +40,7 @@ public class MoviesCollection implements MoviesCollectionImpl {
     /*________________________________________________________________________________________________________________
                                                     Constructor
     ________________________________________________________________________________________________________________*/
-    public MoviesCollection() {
+    public CollectionManager() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         initDateTime = dateFormatter.format(new Date());
     }
@@ -51,7 +51,7 @@ public class MoviesCollection implements MoviesCollectionImpl {
     ________________________________________________________________________________________________________________*/
 
     /**
-     * Method to bind lab6.collection with application.
+     * Method to bind collection with application.
      *
      * @param application Application instance to connect with
      */
@@ -222,7 +222,7 @@ public class MoviesCollection implements MoviesCollectionImpl {
     ________________________________________________________________________________________________________________*/
 
 //    public void updateSortedCollection() {
-//        sortedCollection = (LinkedList<Movie>) lab6.collection.clone();
+//        sortedCollection = (LinkedList<Movie>) collection.clone();
 //        sortedCollection.sort(Movie::compareTo);
 //    }
 
@@ -251,6 +251,22 @@ public class MoviesCollection implements MoviesCollectionImpl {
 
     public boolean isEmpty() {
         return collection.isEmpty();
+    }
+
+    /*________________________________________________________________________________________________________________
+                                                    Setters
+    ________________________________________________________________________________________________________________*/
+
+    public void setCollection(LinkedList<Movie> collection) {
+        this.collection = collection;
+    }
+
+    public void setUsedIds(HashSet<Long> usedIds) {
+        this.usedIds = usedIds;
+    }
+
+    public void setIdentifiers(HashMap<Long, Movie> identifiers) {
+        this.identifiers = identifiers;
     }
 
 }

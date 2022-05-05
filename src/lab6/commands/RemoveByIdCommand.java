@@ -1,7 +1,7 @@
 package lab6.commands;
 
+import lab6.collection.CollectionManagerImpl;
 import lab6.exceptions.collectionexceptions.CollectionException;
-import lab6.collection.MoviesCollectionImpl;
 import com.sun.istack.internal.NotNull;
 import lab6.exceptions.collectionexceptions.IdException;
 
@@ -23,7 +23,7 @@ public class RemoveByIdCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollectionImpl moviesCollection, Object[] args) throws CollectionException {
+    public String execute(@NotNull CollectionManagerImpl moviesCollection, Object[] args) throws CollectionException {
         try {
             Long id = Long.valueOf((String) args[0]);
             if (id <= 0) {

@@ -4,7 +4,7 @@ import lab6.commands.CommandImpl;
 import lab6.exceptions.collectionexceptions.CollectionException;
 
 /**
- * Class that receives lab6.commands and orders them to execute.
+ * Class that receives commands and orders them to execute.
  */
 public class Invoker {
     private Application application;

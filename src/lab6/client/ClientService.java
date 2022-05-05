@@ -11,6 +11,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.LinkedList;
 
 public class ClientService {
     private static int port = 0;
@@ -32,7 +33,6 @@ public class ClientService {
         try {
             startClient();
             Response response = establishConnection();
-//            ioManager.printlnStatus(String.valueOf(serverSocketAddress.getPort()));
             ResponseType responseType = response.getType();
             if (responseType == ResponseType.SUCCESS_AND_FILE_ALREADY_LOADED) {
                 ioManager.printlnSuccess(response.getExitMessage());
@@ -59,10 +59,9 @@ public class ClientService {
                     if (responseType == ResponseType.ERROR) {
                         ioManager.printlnErr(response.getExitMessage());
                     } else {
-                        if (response.getRuntimeMessages() != null) {
-                            for (String msg : response.getRuntimeMessages()) {
-                                ioManager.printlnStatus(msg);
-                            }
+                        LinkedList<String> runtimeMessages = response.getRuntimeMessages();
+                        if (runtimeMessages != null) {
+                            response.getRuntimeMessages().forEach(ioManager::printlnStatus);
                         }
                         ioManager.printlnSuccess(response.getExitMessage());
                         if (request.getType() == RequestType.EXIT) {
@@ -75,6 +74,7 @@ public class ClientService {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             if (!easterEggWasFound) {
                 ioManager.printlnRainbow("Wow! You have found easter egg! Congrats!");
                 ioManager.sleep(2);
@@ -89,7 +89,7 @@ public class ClientService {
     }
 
     /*______________________________________________________________________________________________________________*/
-    /*                                     Initialize lab6.lab6.client service methods                                        */
+    /*                                     Initialize client service methods                                        */
 
     private static boolean fileFetch() throws IOException, ClassNotFoundException {
         String fileName = null;
@@ -103,6 +103,10 @@ public class ClientService {
         Request fileRequest = new Request(RequestType.LOAD, new String[]{fileName});
         sendRequest(fileRequest);
         Response response = receiveResponse();
+        LinkedList<String> runtimeMessages = response.getRuntimeMessages();
+        if (runtimeMessages != null) {
+            runtimeMessages.forEach(ioManager::printlnStatus);
+        }
         if (response.getType() == ResponseType.SUCCESS) {
             ioManager.printlnSuccess(response.getExitMessage());
             return true;
@@ -144,7 +148,7 @@ public class ClientService {
     /*______________________________________________________________________________________________________________*/
 
     private static Response establishConnection() throws IOException, ClassNotFoundException {
-        ioManager.printlnStatus("Connecting to the lab6.server...");
+        ioManager.printlnStatus("Connecting to the server...");
         if (datagramChannel == null) throw new SocketException("Datagram channel has not been initialised yet");
         serverSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(), port);
         ioManager.printlnStatus(serverSocketAddress.toString());
@@ -165,7 +169,7 @@ public class ClientService {
         while (buffer.position() == 0 && Duration.between(awaitTime, Instant.now()).getSeconds() < 5) {
             datagramChannel.receive(buffer);
         }
-        if (buffer.position() == 0) throw new IOException("Unable to reach lab6.server");
+        if (buffer.position() == 0) throw new IOException("Unable to reach server");
         ObjectInputStream bytesToResponseStream = new ObjectInputStream(new ByteArrayInputStream(buffer.array()));
         return (Response) bytesToResponseStream.readObject();
     }

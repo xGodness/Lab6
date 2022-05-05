@@ -1,11 +1,11 @@
 package lab6.commands;
 
-import lab6.collection.MoviesCollectionImpl;
+import lab6.collection.CollectionManagerImpl;
 import com.sun.istack.internal.NotNull;
 
 public class ClearCommand extends Command {
     public static final String tag = "clear";
-    public static final String description = "CLEAR ... clears the lab6.collection";
+    public static final String description = "CLEAR ... clears the collection";
 
     public ClearCommand() {
         super();
@@ -20,7 +20,7 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollectionImpl moviesCollection, Object[] args) {
+    public String execute(@NotNull CollectionManagerImpl moviesCollection, Object[] args) {
         moviesCollection.clearCollection();
         return "Collection has been cleared";
     }

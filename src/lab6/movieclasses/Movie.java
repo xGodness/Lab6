@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Movie class that lab6.collection is storing
+ * Movie class that collection is storing
  */
 
 @XmlAccessorType(XmlAccessType.FIELD)

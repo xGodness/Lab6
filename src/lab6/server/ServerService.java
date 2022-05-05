@@ -56,7 +56,7 @@ public class ServerService {
                         ioManager.printlnSuccess("Collection has been saved");
                     }
                 } catch (FileNotFoundException | FilePermissionException | InvalidFileNameException | SaveCollectionException e) {
-                    ioManager.printlnErr("Cannot save lab6.collection right now");
+                    ioManager.printlnErr("Cannot save collection right now");
                 } catch (IOException e) {e.printStackTrace();}
 
 
@@ -130,7 +130,7 @@ public class ServerService {
 
 
     /*______________________________________________________________________________________________________________*/
-    /*                                     Initialize lab6.server service methods                                        */
+    /*                                     Initialize server service methods                                        */
 
     private static boolean exit(InetSocketAddress clientSocketAddress) throws IOException {
         try {

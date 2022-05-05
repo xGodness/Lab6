@@ -2,10 +2,7 @@ package lab6.IO;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Input-Output Manager
@@ -205,6 +202,8 @@ public class IOManager {
         }
     }
 
+    
+
     public void printlnYellow(String message) {
         printlnOut(ANSI_YELLOW + message + ANSI_RESET);
     }
@@ -227,9 +226,9 @@ public class IOManager {
 
     public void sleep(int sec) {
         Instant awaitTime = Instant.now();
-        while (Duration.between(awaitTime, Instant.now()).getSeconds() < sec) {
+        while (true) {
+            if (Duration.between(awaitTime, Instant.now()).getSeconds() < sec) return;
         }
-        return;
     }
 
     public void printlnRainbow(String message) {

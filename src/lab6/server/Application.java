@@ -1,16 +1,20 @@
 package lab6.server;
 
+import lab6.collection.CollectionManager;
 import lab6.exceptions.collectionexceptions.SaveCollectionException;
 import lab6.exceptions.collectionexceptions.CollectionException;
 import lab6.exceptions.fileexceptions.*;
-import lab6.collection.MoviesCollection;
 import lab6.movieclasses.Movie;
 import lab6.commands.Command;
 import lab6.IO.IOManager;
 
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class-connector. Operates all others classes presented in code.
@@ -19,7 +23,7 @@ import java.util.LinkedList;
 
 public class Application {
     private IOManager ioManager;
-    private MoviesCollection moviesCollection;
+    private CollectionManager moviesCollection;
     private ServerFileManager serverFileManager;
     private Invoker invoker;
 
@@ -38,12 +42,12 @@ public class Application {
     }
 
     /*________________________________________________________________________________________________________________
-                                               Load or save lab6.collection
+                                               Load or save collection
     ________________________________________________________________________________________________________________*/
 
     /**
-     * Loads lab6.collection from the file.
-     * Will be running until lab6.collection is loaded.
+     * Loads collection from the file.
+     * Will be running until collection is loaded.
      *
      * @param fileName Name of the file to load from
      * @return Runtime messages
@@ -51,38 +55,66 @@ public class Application {
     public LinkedList<String> loadCollection(String fileName) throws InvalidFileNameException, FilePermissionException, FileNotFoundException {
         LinkedList<String> runtimeMessages = new LinkedList<>();
         currentFileName = fileName;
-        MoviesCollection rawMoviesCollection = serverFileManager.load(currentFileName);
-        LinkedList<Movie> rawCollection = rawMoviesCollection.getCollection();
-        LinkedList<Movie> wrongMovies = new LinkedList<>();
-        for (int i = 0; i < rawCollection.size(); i++) {
-            if (wrongMovies.contains(rawCollection.get(i))) continue;
-            if (rawCollection.get(i).getId() < 1) {
-                wrongMovies.add(rawCollection.get(i));
-                continue;
-            }
-            for (int j = i + 1; j < rawCollection.size(); j++) {
-                if (wrongMovies.contains(rawCollection.get(j))) continue;
-                if (rawCollection.get(i).getId() == rawCollection.get(j).getId()) {
-                    wrongMovies.add(rawCollection.get(j));
-                }
-            }
-        }
-        if (wrongMovies.size() != 0) {
+        CollectionManager loadedCollectionManager = serverFileManager.load(currentFileName);
+        LinkedList<Movie> loadedCollection = loadedCollectionManager.getCollection();
+
+        HashSet<Long> fixedUsedIds = new HashSet<>();
+        HashMap<Long, Movie> fixedIdentifiers = new HashMap<>();
+        List<Movie> filteredCollection = loadedCollection.stream()
+                .filter(m -> {
+                    if (fixedUsedIds.add(m.getId())) {
+                        fixedIdentifiers.put(m.getId(), m);
+                        return true;
+                    } return false;
+                }).collect(Collectors.toList());
+
+        if (filteredCollection.size() != loadedCollection.size()) {
             runtimeMessages.add("Corrupted elements were found. Fixing the file...");
         }
-        rawCollection.removeAll(wrongMovies);
-        moviesCollection = rawMoviesCollection;
-
-        moviesCollection.setup(this);
+        LinkedList<Movie> fixedMoviesCollection = new LinkedList<>(filteredCollection);
+        loadedCollectionManager.setCollection(fixedMoviesCollection);
+        loadedCollectionManager.setUsedIds(fixedUsedIds);
+        loadedCollectionManager.setIdentifiers(fixedIdentifiers);
+        loadedCollectionManager.setup(this);
+        moviesCollection = loadedCollectionManager;
         collectionWasLoaded = true;
-
         runtimeMessages.add("Collection has been loaded from \"" + currentFileName + "\"");
-
         return runtimeMessages;
+
+//        LinkedList<String> runtimeMessages = new LinkedList<>();
+//        currentFileName = fileName;
+//        CollectionManager rawMoviesCollection = serverFileManager.load(currentFileName);
+//        LinkedList<Movie> rawCollection = rawMoviesCollection.getCollection();
+//        LinkedList<Movie> wrongMovies = new LinkedList<>();
+//        for (int i = 0; i < rawCollection.size(); i++) {
+//            if (wrongMovies.contains(rawCollection.get(i))) continue;
+//            if (rawCollection.get(i).getId() < 1) {
+//                wrongMovies.add(rawCollection.get(i));
+//                continue;
+//            }
+//            for (int j = i + 1; j < rawCollection.size(); j++) {
+//                if (wrongMovies.contains(rawCollection.get(j))) continue;
+//                if (rawCollection.get(i).getId() == rawCollection.get(j).getId()) {
+//                    wrongMovies.add(rawCollection.get(j));
+//                }
+//            }
+//        }
+//        if (wrongMovies.size() != 0) {
+//            runtimeMessages.add("Corrupted elements were found. Fixing the file...");
+//        }
+//        rawCollection.removeAll(wrongMovies);
+//        moviesCollection = rawMoviesCollection;
+//
+//        moviesCollection.setup(this);
+//        collectionWasLoaded = true;
+//
+//        runtimeMessages.add("Collection has been loaded from \"" + currentFileName + "\"");
+//
+//        return runtimeMessages;
     }
 
     /**
-     * Saves lab6.collection to the file application is currently working with.
+     * Saves collection to the file application is currently working with.
      * File name should already been presented in Application class (field "currentFileName").
      *
      * @return Runtime messages
@@ -113,7 +145,7 @@ public class Application {
 
         serverFileManager.create(fileName);
         currentFileName = fileName;
-        moviesCollection = new MoviesCollection();
+        moviesCollection = new CollectionManager();
         moviesCollection.setup(this);
         collectionWasLoaded = true;
         return "New file has been created";
@@ -151,9 +183,9 @@ public class Application {
     }
 
     /**
-     * @return Application's MoviesCollection
+     * @return Application's CollectionManager
      */
-    public MoviesCollection getMoviesCollection() {
+    public CollectionManager getMoviesCollection() {
         return moviesCollection;
     }
 

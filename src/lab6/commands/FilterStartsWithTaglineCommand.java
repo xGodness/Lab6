@@ -1,7 +1,7 @@
 package lab6.commands;
 
+import lab6.collection.CollectionManagerImpl;
 import lab6.exceptions.collectionexceptions.CollectionException;
-import lab6.collection.MoviesCollectionImpl;
 import com.sun.istack.internal.NotNull;
 import lab6.movieclasses.Movie;
 
@@ -24,7 +24,7 @@ public class FilterStartsWithTaglineCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollectionImpl moviesCollection, Object[] args) throws CollectionException {
+    public String execute(@NotNull CollectionManagerImpl moviesCollection, Object[] args) throws CollectionException {
         if (moviesCollection.getCollectionSize() == 0) {
             throw new CollectionException("Collection is empty");
         }
@@ -32,7 +32,7 @@ public class FilterStartsWithTaglineCommand extends Command {
             String tagline = (String) args[0];
             LinkedList<Movie> result = moviesCollection.startsWithTagline(tagline);
             if (result == null || result.size() == 0) {
-                throw new CollectionException("None of the lab6.collection elements starts with given tagline");
+                throw new CollectionException("None of the collection elements starts with given tagline");
             }
             StringBuilder stringBuilder = new StringBuilder();
             for (Movie movie : result) {

@@ -7,7 +7,7 @@ import lab6.movieclasses.Movie;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
-public interface MoviesCollectionImpl {
+public interface CollectionManagerImpl {
     Movie removeHead() throws CollectionException;
     void clearCollection();
     void addMovie(Movie movie);

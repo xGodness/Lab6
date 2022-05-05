@@ -1,7 +1,7 @@
 package lab6.commands;
 
+import lab6.collection.CollectionManagerImpl;
 import lab6.exceptions.collectionexceptions.CollectionException;
-import lab6.collection.MoviesCollectionImpl;
 import com.sun.istack.internal.NotNull;
 
 public class CountLessThanOscarsCountCommand extends Command {
@@ -21,7 +21,7 @@ public class CountLessThanOscarsCountCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollectionImpl moviesCollection, Object[] args) throws CollectionException {
+    public String execute(@NotNull CollectionManagerImpl moviesCollection, Object[] args) throws CollectionException {
         try {
             int value = Integer.parseInt((String) args[0]);
             return Integer.valueOf(moviesCollection.countLessThanOscarsCount(value)).toString();

@@ -1,12 +1,12 @@
 package lab6.commands;
 
 import lab6.exceptions.collectionexceptions.CollectionException;
-import lab6.collection.MoviesCollectionImpl;
+import lab6.collection.CollectionManagerImpl;
 import com.sun.istack.internal.NotNull;
 import lab6.movieclasses.Movie;
 
 public class AddCommand extends Command {
-    public static final String description = "ADD {element} ... adds new element to lab6.collection";
+    public static final String description = "ADD {element} ... adds new element to collection";
     public static final String tag = "add";
 
     public AddCommand() {
@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollectionImpl moviesCollection, Object[] args) throws CollectionException {
+    public String execute(@NotNull CollectionManagerImpl moviesCollection, Object[] args) throws CollectionException {
         try {
             Movie movie = (Movie) args[0];
             moviesCollection.addMovie(movie);

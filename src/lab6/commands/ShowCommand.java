@@ -1,7 +1,7 @@
 package lab6.commands;
 
 import lab6.exceptions.collectionexceptions.CollectionException;
-import lab6.collection.MoviesCollectionImpl;
+import lab6.collection.CollectionManagerImpl;
 import com.sun.istack.internal.NotNull;
 import lab6.movieclasses.Movie;
 
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class ShowCommand extends Command {
     public static final String tag = "show";
-    public static final String description = "SHOW ... shows all lab6.collection's elements";
+    public static final String description = "SHOW ... shows all collection's elements";
 
     public ShowCommand() {
         super();
@@ -24,7 +24,7 @@ public class ShowCommand extends Command {
     }
 
     @Override
-    public String execute(@NotNull MoviesCollectionImpl moviesCollection, Object[] args) throws CollectionException {
+    public String execute(@NotNull CollectionManagerImpl moviesCollection, Object[] args) throws CollectionException {
         if (moviesCollection.getCollectionSize() == 0) {
             throw new CollectionException("Collection is empty");
         }

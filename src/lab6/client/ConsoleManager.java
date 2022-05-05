@@ -12,9 +12,10 @@ import lab6.commands.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * Connects lab6.lab6.client.lab6.IO with application.
+ * Connects client.lab6.IO with application.
  * Also generates new lab6.commands by user's input.
  * Static block loads all available lab6.commands to the class loader
  * and saves their descriptions to the sorted linked hash map.
@@ -22,7 +23,7 @@ import java.util.*;
 public class ConsoleManager {
 
     /* Contains all lab6.lab6.client.lab6.commands' description */
-    private final static LinkedHashMap<String, String> descriptionsMap;
+    private final static LinkedHashMap<String, String> descriptionsHashMap;
 
     static {
         /* Registering all available lab6.lab6.client.lab6.commands */
@@ -45,17 +46,30 @@ public class ConsoleManager {
         }
 
         /* Collecting all available command descriptions */
-        HashMap<String, String> unsortedDescriptionsMap = new HashMap<>();
-        unsortedDescriptionsMap.put("help", "HELP ... provides help");
-        unsortedDescriptionsMap.put("exit", "EXIT ... saves lab6.collection and closes program");
-        for (String tag : CommandsFactory.getAllRegisteredTags()) {
-            try {
-                unsortedDescriptionsMap.put(tag, CommandsFactory.getDescription(tag));
-            } catch (CommandNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        descriptionsMap = HashMapSorter.sortHashMap(unsortedDescriptionsMap);
+        HashMap<String, String> unsortedDescriptionsHashMap = new HashMap<>();
+        unsortedDescriptionsHashMap.put("help", "HELP ... provides help");
+        unsortedDescriptionsHashMap.put("exit", "EXIT ... saves collection and closes program");
+
+        Map<String, String> descriptionMap = CommandsFactory
+                .getAllRegisteredTags()
+                .stream()
+                .collect(Collectors
+                        .toMap(t -> t, (t) -> {
+                                    try {
+                                        return CommandsFactory.getDescription(t);
+                                    } catch (CommandNotFoundException ignored) {}
+                                    return ""; } ));
+        unsortedDescriptionsHashMap.putAll(descriptionMap);
+
+
+//        for (String tag : CommandsFactory.getAllRegisteredTags()) {
+//            try {
+//                unsortedDescriptionsHashMap.put(tag, CommandsFactory.getDescription(tag));
+//            } catch (CommandNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        descriptionsHashMap = HashMapSorter.sortHashMap(unsortedDescriptionsHashMap);
 
     }
 
@@ -91,26 +105,21 @@ public class ConsoleManager {
         if (ioManager.isScannerStackEmpty() && !scriptStackTrace.isEmpty()) {
             scriptStackTrace.clear();
         }
-
         String input;
         LinkedList<String> parsedInput = new LinkedList<>();
         String commandTag;
-
         input = ioManager.getNextInput("Type command (type \"help\" for help): ").toLowerCase(Locale.ROOT);
-
         for (String word : input.split("\\s+")) {
             parsedInput.add(word.trim());
         }
-
         if (parsedInput.size() == 0) {
             return null;
         }
-
         commandTag = parsedInput.pollFirst();
-
         switch (commandTag) {
             case ("help"):
-                for (String cmdDescription : descriptionsMap.values()) {
+                descriptionsHashMap.values().stream().forEach(s -> s.split("\\.\\.\\."));
+                for (String cmdDescription : descriptionsHashMap.values()) {
                     ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
                 }
                 return null;
@@ -176,63 +185,6 @@ public class ConsoleManager {
         scriptStackTrace.add(fileName);
         Scanner fileScanner = new Scanner(file).useDelimiter("\n");
         ioManager.pushScanner(fileScanner);
-//        String input;
-//        String[] parsedInput;
-//
-//        while (fileScanner.hasNextLine()) {
-//
-//            input = fileScanner.nextLine();
-//            ioManager.printlnStatus(">>> " + input);
-//            parsedInput = input.split("\\s+");
-//
-//            if (parsedInput.length == 0) {
-//                continue;
-//            }
-//
-//            String commandTag = parsedInput[0].trim();
-//
-//            switch (commandTag) {
-//
-//                case ("help"):
-//                    for (String cmdDescription : descriptionsMap.values()) {
-//                        ioManager.printlnInfoFormat(cmdDescription.split("\\.\\.\\."));
-//                    }
-//                    break;
-//
-//                case ("exit"):
-//                    return false;
-//
-//                case ("execute_script"):
-//                    if (parsedInput.length == 1) {
-//                        ioManager.printlnErr("Script file name wasn't specified");
-//                        continue;
-//                    }
-//                    ioManager.printlnStatus("Executing script...");
-//                    boolean statusCode = executeScript(parsedInput[1], stackTrace);
-//                    if (!statusCode) {
-//                        return false;
-//                    }
-//                    break;
-//
-//                default:
-//                    try {
-//                        Command command = CommandsFactory.getCommand(commandTag, application.getMoviesCollection());
-//                        String[] commandArgs = Arrays.copyOfRange(parsedInput, 1, parsedInput.length);
-//                        for (int i = 0; i < commandArgs.length; i++) {
-//                            commandArgs[i] = commandArgs[i].trim();
-//                        }
-//                        ioManager.printlnSuccess(
-//                                application.executeCommand(command, commandArgs)
-//                        );
-//                    } catch (CommandNotFoundException | CannotAccessCommandException | CollectionException e) {
-//                        ioManager.printlnErr(e.getMessage());
-//                    }
-//                    break;
-//            }
-//
-//        }
-//        ioManager.popScanner();
-//        return true;
     }
 
 }
