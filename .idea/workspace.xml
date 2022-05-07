@@ -13,11 +13,128 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6b324fab-2602-4f74-b61c-9579024039f6" name="Changes" comment="upd 5: JARs, report and diagram">
+    <list default="true" id="6b324fab-2602-4f74-b61c-9579024039f6" name="Changes" comment="upd 6.1: -&gt; -&gt; -&gt;">
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/IO/IOManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab6/lab6/IO/IOManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/ConsoleManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab6/lab6/client/ConsoleManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lab6/client/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lab6/client/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab6.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/IO/IOManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/IO/StringValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/ClientFileManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/ClientService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/CommandsFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/ConsoleManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/HashMapSorter$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/HashMapSorter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/client/MovieBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/AddCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/AddIfMaxCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/ClearCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/CommandImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/CountLessThanOscarsCountCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/FilterStartsWithTaglineCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/InfoCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/MaxByScreenwriterCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/RemoveByIdCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/RemoveHeadCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/RemoveLowerCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/ShowCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/commands/UpdateCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/collectionexceptions/CollectionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/collectionexceptions/EmptyCollectionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/collectionexceptions/IdException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/collectionexceptions/LoadCollectionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/collectionexceptions/RecursionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/collectionexceptions/SaveCollectionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/factoryexceptions/CannotAccessCommandException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/factoryexceptions/CommandNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/factoryexceptions/FactoryException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/fileexceptions/CannotCreateFileException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/fileexceptions/FileAlreadyExistsException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/fileexceptions/FileException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/fileexceptions/FilePermissionException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/exceptions/fileexceptions/InvalidFileNameException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/Coordinates.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/Location.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/Movie.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/Person.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/enums/Country.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/enums/EyeColor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/enums/HairColor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/enums/MovieGenre.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/movieclasses/enums/MpaaRating.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/requestresponse/ExceptionType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/requestresponse/Request.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/requestresponse/RequestType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/requestresponse/Response.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/requestresponse/ResponseType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/server/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/server/Invoker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/server/ServerFileManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/server/ServerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/server/jaxbadapters/LocalDateAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab6/lab6/server/jaxbadapters/LocalDateTimeAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/IO/IOManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/IO/IOManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/IO/StringValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/IO/StringValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/client/ClientFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/client/ClientFileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/client/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/client/ClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/client/CommandsFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/client/CommandsFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/client/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/client/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/client/HashMapSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/client/HashMapSorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/client/MovieBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/client/MovieBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/collection/CollectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/collection/CollectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/collection/CollectionManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/collection/CollectionManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/AddCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/AddCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/AddIfMaxCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/AddIfMaxCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/ClearCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/ClearCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/CommandImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/CommandImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/CountLessThanOscarsCountCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/CountLessThanOscarsCountCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/FilterStartsWithTaglineCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/FilterStartsWithTaglineCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/InfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/InfoCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/MaxByScreenwriterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/MaxByScreenwriterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/RemoveByIdCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/RemoveByIdCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/RemoveHeadCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/RemoveHeadCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/RemoveLowerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/RemoveLowerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/ShowCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/ShowCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/commands/UpdateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/commands/UpdateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/collectionexceptions/CollectionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/collectionexceptions/CollectionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/collectionexceptions/EmptyCollectionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/collectionexceptions/EmptyCollectionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/collectionexceptions/IdException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/collectionexceptions/IdException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/collectionexceptions/LoadCollectionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/collectionexceptions/LoadCollectionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/collectionexceptions/RecursionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/collectionexceptions/RecursionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/collectionexceptions/SaveCollectionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/collectionexceptions/SaveCollectionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/factoryexceptions/CannotAccessCommandException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/factoryexceptions/CannotAccessCommandException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/factoryexceptions/CommandNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/factoryexceptions/CommandNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/factoryexceptions/FactoryException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/factoryexceptions/FactoryException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/fileexceptions/CannotCreateFileException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/fileexceptions/CannotCreateFileException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/fileexceptions/FileAlreadyExistsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/fileexceptions/FileAlreadyExistsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/fileexceptions/FileException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/fileexceptions/FileException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/fileexceptions/FilePermissionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/fileexceptions/FilePermissionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/exceptions/fileexceptions/InvalidFileNameException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/exceptions/fileexceptions/InvalidFileNameException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/Coordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/enums/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/enums/Country.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/enums/EyeColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/enums/EyeColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/enums/HairColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/enums/HairColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/enums/MovieGenre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/enums/MovieGenre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/movieclasses/enums/MpaaRating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/movieclasses/enums/MpaaRating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/requestresponse/ExceptionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/requestresponse/ExceptionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/requestresponse/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/requestresponse/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/requestresponse/RequestType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/requestresponse/RequestType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/requestresponse/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/requestresponse/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/requestresponse/ResponseType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/requestresponse/ResponseType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/server/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/server/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/server/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/server/Invoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/server/ServerFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/server/ServerFileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/server/ServerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/server/ServerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/server/jaxbadapters/LocalDateAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/server/jaxbadapters/LocalDateAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab6/server/jaxbadapters/LocalDateTimeAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lab6/server/jaxbadapters/LocalDateTimeAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +163,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -55,15 +179,40 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="build.tools" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+  </component>
+  <component name="RunManager" selected="Application.Server">
+    <configuration name="Client" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="lab6.client.ClientService" />
+      <module name="Lab6" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="lab6.server.ServerService" />
+      <module name="Lab6" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.Client" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -81,6 +230,12 @@
       <workItem from="1650916701421" duration="610000" />
       <workItem from="1650920725231" duration="23075000" />
       <workItem from="1651332926605" duration="1232000" />
+      <workItem from="1651792226377" duration="32000" />
+      <workItem from="1651856129423" duration="13000" />
+      <workItem from="1651878999365" duration="1122000" />
+      <workItem from="1651880143418" duration="634000" />
+      <workItem from="1651881053376" duration="26000" />
+      <workItem from="1651881091875" duration="3467000" />
     </task>
     <task id="LOCAL-00001" summary="upd 1: dirty but promising">
       <created>1650839511935</created>
@@ -96,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650944215949</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="upd 6.1: -&gt; -&gt; -&gt;">
+      <created>1651792249265</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651792249265</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +278,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="upd 1: dirty but promising" />
     <MESSAGE value="upd 3: not dirty anymore" />
-    <option name="LAST_COMMIT_MESSAGE" value="upd 3: not dirty anymore" />
+    <MESSAGE value="upd 6.1: -&gt; -&gt; -&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd 6.1: -&gt; -&gt; -&gt;" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
